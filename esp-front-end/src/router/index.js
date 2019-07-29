@@ -4,12 +4,13 @@ import VueRouter from 'vue-router'
 import login from '@/components/Login'
 import home_customer from '@/components/customer/home_customer'
 import deposit_customer from '@/components/customer/deposit_customer'
+import home_manager from '@/components/manager/home_manager'
+import home_teller from '@/components/teller/home_teller'
+
 Vue.use(VueRouter)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from '../store'
-
-
 
 
 let router = new VueRouter({
@@ -32,6 +33,27 @@ let router = new VueRouter({
 
       }
     },
+    {
+      path: '/home_manager',
+      name: 'home_manager',
+      component: home_manager,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'manager'
+
+      }
+    },
+    {
+      path: '/home_teller',
+      name: 'home_teller',
+      component: home_teller,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'teller'
+
+      }
+    },
+    
     {
       path: '/deposit_customer',
       name: 'deposit_customer',
@@ -70,7 +92,7 @@ router.beforeEach((to, from, next) => {
           next()
           return
         } else {
-          console.log("you are not customer")
+          console.log("權限不符")
           next('/')
         }
       }

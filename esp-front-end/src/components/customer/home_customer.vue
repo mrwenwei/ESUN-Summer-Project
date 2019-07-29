@@ -1,3 +1,3 @@
 <template>
-    <div><p>home_customer</p></div>
+    <div><p>hello customer</p></div>
 </template>

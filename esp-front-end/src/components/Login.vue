@@ -74,7 +74,9 @@ export default {
       let password = this.user.password;
       this.$store
         .dispatch("login", { id, password })
-        .then(() => this.$router.push("/home_customer"))
+        // .then(() => this.$router.push("/home_customer"))
+        .then(() => this.$router.push("/home_" + this.$store.getters.authToken))
+
         .catch(err => console.log(err));
     }
   }
