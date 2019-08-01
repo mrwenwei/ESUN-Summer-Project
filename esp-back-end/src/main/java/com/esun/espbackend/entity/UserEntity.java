@@ -17,13 +17,14 @@ public class UserEntity {
     @Column(name = "password")
     String Password;
 	
-	@NotNull
     @Column(name = "role")
     String Role;
 	
-	@NotNull
     @Column(name = "name")
     String Name;
+
+    @Column(name = "branch_code")
+    String BranchCode;
 	
 	public String getAccount() {
 		return Account;
@@ -41,6 +42,10 @@ public class UserEntity {
 		return Name;
 	}
 	
+	public String getBranchCode() {
+		return BranchCode;
+	}
+	
 	public void setAccount(String account) {
 		this.Account = account;
 	}
@@ -55,6 +60,10 @@ public class UserEntity {
 	
 	public void setName(String name) {
 		this.Name = name;
+	}
+	
+	public void setBranchCode(String branch_code) {
+		this.BranchCode = branch_code;
 	}
 	
 	

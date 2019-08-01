@@ -33,18 +33,19 @@ public class UserService {
 		return User;
 	}
 	
-    public UserEntity createUser(UserEntity UserEntity) {
-        return userRepo.save(UserEntity);
+    public UserEntity createUser(UserEntity userEntity) {
+        return userRepo.save(userEntity);
     }
     
-    public UserEntity updateUser(String account, UserEntity UserEntity) {
+    public UserEntity updateUser(String account, UserEntity userEntity) {
         UserEntity updatedUser;
         Optional<UserEntity> searchEntity = userRepo.findById(account);
         if (searchEntity.isPresent()) {
             UserEntity User = searchEntity.get();
-            User.setPassword(UserEntity.getPassword());
-            User.setName(UserEntity.getName());
-            User.setRole(UserEntity.getRole());
+            User.setPassword(userEntity.getPassword());
+            User.setName(userEntity.getName());
+            User.setRole(userEntity.getRole());
+            User.setBranchCode(userEntity.getBranchCode());
             updatedUser = userRepo.save(User);
         } else {
             throw new EntityNotFoundException();
@@ -61,5 +62,21 @@ public class UserService {
             throw new EntityNotFoundException();
         }
         return ResponseEntity.ok().build();
+    }
+    
+    public UserEntity authenticateUser(String account, UserEntity accountEntity) {
+		Optional<UserEntity> searchEntity = userRepo.findById(account);
+		if (searchEntity.isPresent()) {
+			UserEntity login_account = searchEntity.get();
+            if (accountEntity.getPassword().equals(login_account.getPassword())) {
+            	
+            	return login_account;
+            }else {
+            
+            	return accountEntity;
+            }    
+        } else {
+            throw new EntityNotFoundException();
+        }
     }
 }
