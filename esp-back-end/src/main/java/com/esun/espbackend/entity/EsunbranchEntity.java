@@ -25,8 +25,7 @@ public class EsunbranchEntity {
     @Column(name = "tele")
     String Tele;
 	
-	@NotNull
-    @Column(name = "maanager_name")
+    @Column(name = "manager_name")
     String ManagerName;
 	
 	
@@ -58,7 +57,7 @@ public class EsunbranchEntity {
 	public void setTele(String tele) {
 		this.Tele = tele;
 	}
-	public void setManagerName(String maanager_name) {
-		this.ManagerName = maanager_name;
+	public void setManagerName(String manager_name) {
+		this.ManagerName = manager_name;
 	}
 }

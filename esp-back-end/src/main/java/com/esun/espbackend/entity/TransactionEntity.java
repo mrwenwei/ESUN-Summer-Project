@@ -1,23 +1,30 @@
 package com.esun.espbackend.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="TRANSACTIONS")
 public class TransactionEntity {
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", columnDefinition="uniqueidentifier")
+	@GenericGenerator(name = "generator", strategy = "guid", parameters = {})
+	@GeneratedValue(generator = "generator")
 	String Id;
 	
-	@NotNull
-    @Column(name = "datetime")
-    String DateTime;
+    @Column(name = "datetime", insertable = false, updatable = false)
+    @CreationTimestamp
+    Date DateTime;
 	
-	@NotNull
     @Column(name = "branch_code")
     String BranchCode;
 	
@@ -26,17 +33,23 @@ public class TransactionEntity {
     String Type;
 	
 	@NotNull
-    @Column(name = "front_data")
-    String FrontData;
+	@Column(name = "broker")
+	String Broker;
 	
 	@NotNull
-    @Column(name = "back_data")
-    String BackData;
+    @Column(name = "receipts_data")
+    String ReceiptsData;
+	
+    @Column(name = "finished")
+    boolean Finished;
+    
+    @Column(name = "reviewed")
+    boolean Reviewed;
 	
 	public String getId() {
 		return Id;
 	}
-	public String getDateTime() {
+	public Date getDateTime() {
 		return DateTime;
 	}
 	public String getBranchCode() {
@@ -45,17 +58,24 @@ public class TransactionEntity {
 	public String getType() {
 		return Type;
 	}
-	public String getFrontData() {
-		return FrontData;
+	public String getBroker() {
+		return Broker;
 	}
-	public String getBackData() {
-		return BackData;
+	public String getReceiptsData() {
+		return ReceiptsData;
 	}
+	public boolean getFinished() {
+		return Finished;
+	}
+	public boolean getReviewed() {
+		return Reviewed;
+	}
+	
 	
 	public void setId(String id) {
 		this.Id = id;
 	}
-	public void setDateTime(String datetime) {
+	public void setDateTime(Date datetime) {
 		this.DateTime = datetime;
 	}
 	public void setBranchCode(String branch_code) {
@@ -64,10 +84,16 @@ public class TransactionEntity {
 	public void setType(String type) {
 		this.Type = type;
 	}
-	public void setFrontData(String front_data) {
-		this.FrontData = front_data;
+	public void setBroker(String broker) {
+		this.Broker = broker;
 	}
-	public void setBackData(String back_data) {
-		this.BackData = back_data;
+	public void setReceiptsData(String receipts_data) {
+		this.ReceiptsData = receipts_data;
+	}
+	public void setFinished(boolean finished) {
+		this.Finished = finished;
+	}
+	public void setReviewed(boolean reviewed) {
+		this.Reviewed = reviewed;
 	}
 }

@@ -14,6 +14,7 @@ import com.esun.espbackend.repository.EsunbranchRepository;
 
 @Service
 public class EsunbranchService {
+	
 	@Autowired
 	EsunbranchRepository esunbranchRepo;
 	
@@ -32,13 +33,13 @@ public class EsunbranchService {
 		return branch;
 	}
 	
-	public EsunbranchEntity createBranch(EsunbranchEntity transactionEntity) {
-		return esunbranchRepo.save(transactionEntity);
+	public EsunbranchEntity createBranch(EsunbranchEntity branchEntity) {
+		return esunbranchRepo.save(branchEntity);
 	}
 	
-	public EsunbranchEntity updateBranch(String branch_code, EsunbranchEntity esunbranchEntity) {
+	public EsunbranchEntity updateBranch(String branchCode, EsunbranchEntity esunbranchEntity) {
 		EsunbranchEntity updatedBranch;
-        Optional<EsunbranchEntity> searchEntity = esunbranchRepo.findById(branch_code);
+        Optional<EsunbranchEntity> searchEntity = esunbranchRepo.findById(branchCode);
         if (searchEntity.isPresent()) {
         	EsunbranchEntity branch = searchEntity.get();
         	branch.setName(esunbranchEntity.getName());
@@ -52,8 +53,8 @@ public class EsunbranchService {
         return updatedBranch;
     }
     
-    public ResponseEntity<Object> deleteBranch(String branch_code) {
-        Optional<EsunbranchEntity> esunbranchEntity = esunbranchRepo.findById(branch_code);
+    public ResponseEntity<Object> deleteBranch(String branchCode) {
+        Optional<EsunbranchEntity> esunbranchEntity = esunbranchRepo.findById(branchCode);
         if (esunbranchEntity.isPresent()) {
             EsunbranchEntity branch = esunbranchEntity.get();
             esunbranchRepo.delete(branch);

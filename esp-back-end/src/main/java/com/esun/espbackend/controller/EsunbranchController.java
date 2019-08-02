@@ -27,9 +27,9 @@ public class EsunbranchController {
         return branchService.getAll();
     }
 	
-	@RequestMapping(value = "/GET/branch/{branch_code}")
-    public EsunbranchEntity getUser(@PathVariable(value = "branch_code") String branch_code) {
-        return branchService.getOne(branch_code);
+	@RequestMapping(value = "/GET/branch/{id}")
+    public EsunbranchEntity getUser(@PathVariable(value = "id") String branchCode) {
+        return branchService.getOne(branchCode);
     }
 	
 	@RequestMapping(value = "/POST/branch", method = RequestMethod.POST)
@@ -37,14 +37,15 @@ public class EsunbranchController {
         return branchService.createBranch(branchEntity);
     }
 	
-	@RequestMapping(value = "/DELETE/branch/{branch_code}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteBranch(@PathVariable(value = "branch_code") String branch_code) {
-        return branchService.deleteBranch(branch_code);
+	
+	@RequestMapping(value = "/DELETE/branch/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteBranch(@PathVariable(value = "id") String branchCode) {
+        return branchService.deleteBranch(branchCode);
     }
 	
-	@RequestMapping(value = "/PUT/branch/{branch_code}", method = RequestMethod.PUT)
-    public EsunbranchEntity updateUser(@PathVariable(value = "branch_code") String branch_code,
+	@RequestMapping(value = "/PUT/branch/{id}", method = RequestMethod.PUT)
+    public EsunbranchEntity updateUser(@PathVariable(value = "id") String branchCode,
             @Valid @RequestBody EsunbranchEntity branchEntity) {
-        return branchService.updateBranch(branch_code, branchEntity);
+        return branchService.updateBranch(branchCode, branchEntity);
     }
 }

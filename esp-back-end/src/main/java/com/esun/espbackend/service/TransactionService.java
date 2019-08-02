@@ -34,6 +34,10 @@ public class TransactionService {
 	}
 	
 	public TransactionEntity createTransaction(TransactionEntity transactionEntity) {
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.setTime(transactionEntity.getDateTime());
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//		sdf.setTimeZone(TimeZone.getTimeZone("CST"));
 		return transRepo.save(transactionEntity);
 	}
 	
@@ -45,8 +49,8 @@ public class TransactionService {
             Transaction.setDateTime(transactionEntity.getDateTime());
             Transaction.setBranchCode(transactionEntity.getBranchCode());
             Transaction.setType(transactionEntity.getType());
-            Transaction.setFrontData(transactionEntity.getFrontData());
-            Transaction.setBackData(transactionEntity.getBackData());
+            Transaction.setBroker(transactionEntity.getBroker());
+            Transaction.setReceiptsData(transactionEntity.getReceiptsData());
             updatedTransaction = transRepo.save(Transaction);
         } else {
             throw new EntityNotFoundException();
@@ -64,5 +68,6 @@ public class TransactionService {
         }
         return ResponseEntity.ok().build();
     }
+    
 
 }
