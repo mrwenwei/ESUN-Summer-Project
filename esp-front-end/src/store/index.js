@@ -36,7 +36,7 @@ export default new Vuex.Store({
           commit('auth_request')
         //   console.log(user)
         //   console.log(user.id)
-          axios({url: '/api/authenticate/' + user.id, data: user, method: 'POST' })
+          axios({url: '/api/POST/user/auth/' + user.id, data: user, method: 'POST' })
           .then(resp => {
             const token = resp.data.role
             const user = resp.data.id

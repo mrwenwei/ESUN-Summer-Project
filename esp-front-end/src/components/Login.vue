@@ -1,14 +1,14 @@
 
 <template>
-  <div>
-    <!-- nav bar -->
+  <!-- nav bar -->
+  <div class="h-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01"
+        aria-conztrols="navbarTogglerDemo01"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
@@ -19,36 +19,41 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
       </div>
     </nav>
-
-    <!-- login form -->
-    <form v-on:submit.prevent="login">
-      <!-- 帳號 -->
-      <div class="form-group">
-        <label for="formGroupExampleInput">帳號</label>
-        <input
-          type="text"
-          v-model="user.id"
-          required
-          class="form-control"
-          id="formGroupExampleInput"
-          placeholder="account"
-        />
+    <div class="container-fluid" style=" height:80%">
+      <!-- login form -->
+      <div class="row h-100 no-glutters justify-content-center">
+        <div class="col-md-4 align-self-center">
+          <form v-on:submit.prevent="login">
+            <!-- 帳號 -->
+            <div class="form-group">
+              <label for="formGroupExampleInput">帳號</label>
+              <input
+                type="text"
+                v-model="user.id"
+                required
+                class="form-control"
+                id="formGroupExampleInput"
+                placeholder="account"
+              />
+            </div>
+            <!-- 密碼 -->
+            <div class="form-group">
+              <label for="formGroupExampleInput2">密碼</label>
+              <input
+                type="test"
+                v-model="user.password"
+                required
+                class="form-control"
+                id="formGroupExampleInput2"
+                placeholder="password"
+              />
+            </div>
+            <!-- 登入按鈕 -->
+            <button type="submit" class="btn btn-primary">登入</button>
+          </form>
+        </div>
       </div>
-      <!-- 密碼 -->
-      <div class="form-group">
-        <label for="formGroupExampleInput2">密碼</label>
-        <input
-          type="test"
-          v-model="user.password"
-          required
-          class="form-control"
-          id="formGroupExampleInput2"
-          placeholder="password"
-        />
-      </div>
-      <!-- 登入按鈕 -->
-      <button type="submit" class="btn btn-primary">登入</button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -82,3 +87,5 @@ export default {
   }
 };
 </script>
+
+
