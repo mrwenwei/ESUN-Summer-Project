@@ -30,6 +30,15 @@ let router = new VueRouter({
       meta: {
         requiresAuth: true,
         allowAuth: 'customer'
+      },
+    },
+    {
+      path: 'deposit_customer',
+      name: 'deposit_customer',
+      component: deposit_customer,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'customer'
 
       }
     },
@@ -54,16 +63,7 @@ let router = new VueRouter({
       }
     },
 
-    {
-      path: '/deposit_customer',
-      name: 'deposit_customer',
-      component: deposit_customer,
-      meta: {
-        requiresAuth: true,
-        allowAuth: 'customer'
-
-      }
-    }
+    
   ]
 })
 

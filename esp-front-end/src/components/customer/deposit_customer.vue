@@ -1,24 +1,4 @@
 <template>
-  <div class="h-100">
-    <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand text-light" href="#">電子表單系統</a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
-      </div>
-    </nav>
-
     <!-- 表單 -->
     <div class="container-fluid h-100">
       <form v-on:submit.prevent="submit_form" style="width:100%;height:100%">
@@ -99,7 +79,6 @@
         <button type="submit" class="btn btn-primary">確認</button>
       </form>
     </div>
-  </div>
 </template>
 
 
