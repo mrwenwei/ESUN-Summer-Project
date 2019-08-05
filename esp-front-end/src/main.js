@@ -18,7 +18,7 @@ const eventsHub = new Vue()
 Vue.use(IdleVue, {
   eventEmitter: eventsHub,
   // 閒置時間（單位：毫秒）
-  idleTime: 1000*60*1
+  idleTime: 1000*60*10
 })
 
 const token = localStorage.getItem('token')

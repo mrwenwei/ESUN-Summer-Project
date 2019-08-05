@@ -4,8 +4,16 @@ import VueRouter from 'vue-router'
 import login from '@/components/Login'
 import home_customer from '@/components/customer/home_customer'
 import deposit_customer from '@/components/customer/deposit_customer'
+import transfer_customer from '@/components/customer/transfer_customer'
+import withdraw_customer from '@/components/customer/withdraw_customer'
 import home_manager from '@/components/manager/home_manager'
+import inquire_manager from '@/components/manager/inquire_manager'
+import verify_manager from '@/components/manager/verify_manager'
 import home_teller from '@/components/teller/home_teller'
+import deposit_teller from '@/components/teller/deposit_teller'
+import inquire_teller from '@/components/teller/inquire_teller'
+import transfer_teller from '@/components/teller/transfer_teller'
+import withdraw_teller from '@/components/teller/withdraw_teller'
 
 Vue.use(VueRouter)
 import Vuex from 'vuex'
@@ -63,7 +71,88 @@ let router = new VueRouter({
         allowAuth: 'customer'
 
       }
-    }
+    },
+    {
+      path: '/transfer_customer',
+      name: 'transfer_customer',
+      component: transfer_customer,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'customer'
+
+      }
+    },
+    {
+      path: '/withdraw_customer',
+      name: 'withdraw_customer',
+      component: withdraw_customer,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'customer'
+
+      }
+    },
+    {
+      path: '/inquire_manager',
+      name: 'inquire_manager',
+      component: inquire_manager,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'manager'
+
+      }
+    },
+    {
+      path: '/verify_manager',
+      name: 'verify_manager',
+      component: verify_manager,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'manager'
+
+      }
+    },
+    {
+      path: '/deposit_teller',
+      name: 'deposit_teller',
+      component: deposit_teller,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'teller'
+
+      }
+    },
+    {
+      path: '/transfer_teller',
+      name: 'transfer_teller',
+      component: transfer_teller,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'teller'
+
+      }
+    },
+    {
+      path: '/withdraw_teller',
+      name: 'withdraw_teller',
+      component: withdraw_teller,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'teller'
+
+      }
+    },
+    {
+      path: '/inquire_teller',
+      name: 'inquire_teller',
+      component: inquire_teller,
+      meta: {
+        requiresAuth: true,
+        allowAuth: 'teller'
+
+      }
+    },
+    
   ]
 })
 
