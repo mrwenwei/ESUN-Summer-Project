@@ -10,13 +10,23 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from './store'
-
+import IdleVue from 'idle-vue'
 Vue.config.productionTip = false
+
+const eventsHub = new Vue()
+ 
+Vue.use(IdleVue, {
+  eventEmitter: eventsHub,
+  // 閒置時間（單位：毫秒）
+  idleTime: 1000*60*1
+})
 
 const token = localStorage.getItem('token')
 if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = token
 }
+
+
 
 
 /* eslint-disable no-new */

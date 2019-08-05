@@ -1,104 +1,83 @@
 <template>
-  <div class="h-100">
-    <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand text-light" href="#">電子表單系統</a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+  <!-- 表單 -->
+  <div class="container-fluid h-100">
+    <form v-on:submit.prevent="submit_form" style="width:100%;height:100%">
+      <!-- 存款金額 -->
+      <div class="form-row form-group">
+        <div class="col-md-2">
+          <label for="depositAmount">金額（新台幣）</label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            id="depositAmount"
+            placeholder="請輸入金額"
+            v-model="depositForm.depositAmount"
+            required
+          />
+        </div>
       </div>
-    </nav>
-
-    <!-- 表單 -->
-    <div class="container-fluid h-100">
-      <form v-on:submit.prevent="submit_form" style="width:100%;height:100%">
-        <!-- 存款金額 -->
-        <div class="form-row form-group">
-          <div class="col-md-2">
-            <label for="depositAmount">金額（新台幣）</label>
-          </div>
-          <div class="col-md-4">
-            <input
-              type="text"
-              class="form-control"
-              id="depositAmount"
-              placeholder="請輸入金額"
-              v-model="depositForm.depositAmount"
-              required
-            />
-          </div>
+      <!-- 姓名 -->
+      <div class="form-row form-group">
+        <div class="col-md-2">
+          <label for="customerName">存款戶名/票據申請人</label>
         </div>
-        <!-- 姓名 -->
-        <div class="form-row form-group">
-          <div class="col-md-2">
-            <label for="customerName">存款戶名/票據申請人</label>
-          </div>
-          <div class="col-md-4">
-            <input
-              type="text"
-              class="form-control"
-              id="customerName"
-              placeholder="請輸入姓名"
-              v-model="depositForm.customerName"
-              required
-            />
-          </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            id="customerName"
+            placeholder="請輸入姓名"
+            v-model="depositForm.customerName"
+            required
+          />
         </div>
+      </div>
 
-        <!-- 電話 -->
-        <div class="form-row form-group">
-          <div class="col-md-2">
-            <label for="customerPhone">聯絡電話</label>
-          </div>
-          <div class="col-md-4">
-            <input
-              type="text"
-              class="form-control"
-              id="customerPhone"
-              placeholder="請輸入聯絡電話"
-              v-model="depositForm.customerPhone"
-              required
-            />
-          </div>
+      <!-- 電話 -->
+      <div class="form-row form-group">
+        <div class="col-md-2">
+          <label for="customerPhone">聯絡電話</label>
         </div>
-
-        <!-- 交易方式 -->
-        <div class="form-row form-group">
-          <div class="col-md-2">
-            <label for="depositMethod">存款方式</label>
-          </div>
-          <div class="col-md-4">
-            <select
-              class="custom-select"
-              id="depositMethod"
-              v-model="depositForm.depositMethod"
-              required
-            >
-              <option value>請選擇存款方式</option>
-              <option value="deposit">存戶存款</option>
-              <option value="creditCardFee">繳卡款</option>
-              <option value="ticket">開立票據</option>
-            </select>
-            <!-- <div class="invalid-feedback">"您必須選擇交易方式"</div> -->
-          </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            id="customerPhone"
+            placeholder="請輸入聯絡電話"
+            v-model="depositForm.customerPhone"
+            required
+          />
         </div>
+      </div>
 
-        <!-- dynamic transact method  -->
-        <component :is="depositForm.depositMethod" @value_updated="get_child_data"></component>
+      <!-- 交易方式 -->
+      <div class="form-row form-group">
+        <div class="col-md-2">
+          <label for="depositMethod">存款方式</label>
+        </div>
+        <div class="col-md-4">
+          <select
+            class="custom-select"
+            id="depositMethod"
+            v-model="depositForm.depositMethod"
+            required
+          >
+            <option value>請選擇存款方式</option>
+            <option value="deposit">存戶存款</option>
+            <option value="creditCardFee">繳卡款</option>
+            <option value="ticket">開立票據</option>
+          </select>
+          <!-- <div class="invalid-feedback">"您必須選擇交易方式"</div> -->
+        </div>
+      </div>
 
-        <button type="submit" class="btn btn-primary">確認</button>
-      </form>
-    </div>
+      <!-- dynamic transact method  -->
+      <component :is="depositForm.depositMethod" @value_updated="get_child_data"></component>
+
+      <button type="submit" class="btn btn-primary">確認</button>
+    </form>
   </div>
 </template>
 
@@ -114,18 +93,19 @@ export default {
         customerPhone: "",
         depositMethod: "",
         transactDetail: {}
-      },
-       
+      }
     };
   },
   methods: {
     submit_form() {
-        let uri = "api/POST/transaction";
-        this.axios.post(uri,  {
-            'type':this.transactType,
-            'receiptsData':JSON.stringify(this.depositForm)
-        }).then(response => {
-        // console.log(this.test);
+      let uri = "api/POST/transaction";
+      this.axios
+        .post(uri, {
+          type: this.transactType,
+          receiptsData: JSON.stringify(this.depositForm)
+        })
+        .then(response => {
+          // console.log(this.test);
         });
     },
     get_child_data(value) {
