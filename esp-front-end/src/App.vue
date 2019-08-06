@@ -1,5 +1,5 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <button
@@ -19,7 +19,7 @@
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a v-if="isLoggedIn" class="nav-link" href="/" @click="logout">Logout</a>
+            <a v-if="isLoggedIn" class="nav-link" href="#" @click="logout">Logout</a>
           </li>
         </ul>
       </div>
@@ -32,11 +32,6 @@
 
 <script>
 export default {
-  // data() {
-  //   return {
-  //     currentTime: new Date().getTime() 
-  //   };
-  // },
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
@@ -54,23 +49,21 @@ export default {
   },
   methods: {
     logout: function() {
+      if(confirm("您確定要登出嗎？")){
       this.$store.dispatch("logout");
-    },
-    // OperatingWebsite() {
-    //   let currentTime = this.currentTime;
-    //   console.log(currentTime, "currentTime");
-    //   let lastTime = new Date().getTime();
-    //   console.log(lastTime, "lastTime");
-    //   let timeOut = 0.1 * 60 * 1000; //設定時間 10分鐘
-    //   if (lastTime - currentTime > timeOut) {
-    //     // 未操作頁面，跳轉登入頁面
-       
-    //     this.$router.push("/");
-    //     console.log("滾啦")
-    //   } else {
-    //     this.currentTime = new Date().getTime(); 
-    //   }
-    // }
+      this.$router.push("/");
+      }else{
+        console.log("沒事按到ㄅ歉")
+      }
+    }
+    
+  },
+
+  onIdle() {
+    alert("閒置過久，請重新登入")
+    this.$store.dispatch("logout");
+    this.$router.push("/");
+    console.log("閒置過久，已登出");
   }
 };
 </script>
