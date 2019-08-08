@@ -109,7 +109,7 @@ export default {
 };
 </script>
 <style>
-@import '../../../../node_modules/daterangepicker/daterangepicker.css';
+@import '../../../node_modules/daterangepicker/daterangepicker.css';
 .VueTables__date-filter {
   border: 1px solid #ccc;
   padding: 6px;
