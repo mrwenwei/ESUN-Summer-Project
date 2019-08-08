@@ -44,7 +44,7 @@ export default {
       user: {
         id: "",
         password: ""
-      },
+      }
       // logInTime: new Date().getTime()
     };
   },
@@ -57,12 +57,12 @@ export default {
         .dispatch("login", { id, password })
         .then(() => {
           if (this.$store.getters.authToken == "Wrong account") {
-            alert("帳號錯誤")
+            alert("帳號錯誤");
             console.log(this.$store.getters.authToken);
             this.$store.dispatch("logout");
             this.$router.push("/");
           } else if (this.$store.getters.authToken == "Wrong password") {
-            alert("密碼錯誤")
+            alert("密碼錯誤");
             console.log(this.$store.getters.authToken);
             this.$store.dispatch("logout");
             this.$router.push("/");
@@ -70,10 +70,8 @@ export default {
             this.$router.push("/home_" + this.$store.getters.authToken);
             console.log(this.$store.getters.authToken);
           }
-          
         })
         .catch(err => console.log(err));
-      
     }
   }
 };
