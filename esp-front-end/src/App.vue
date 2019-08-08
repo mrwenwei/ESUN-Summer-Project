@@ -49,18 +49,17 @@ export default {
   },
   methods: {
     logout: function() {
-      if(confirm("您確定要登出嗎？")){
-      this.$store.dispatch("logout");
-      this.$router.push("/");
-      }else{
-        console.log("沒事按到ㄅ歉")
+      if (confirm("您確定要登出嗎？")) {
+        this.$store.dispatch("logout");
+        this.$router.push("/");
+      } else {
+        console.log("沒事按到ㄅ歉");
       }
     }
-    
   },
 
   onIdle() {
-    alert("閒置過久，請重新登入")
+    alert("閒置過久，請重新登入");
     this.$store.dispatch("logout");
     this.$router.push("/");
     console.log("閒置過久，已登出");

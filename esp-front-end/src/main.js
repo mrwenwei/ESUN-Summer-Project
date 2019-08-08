@@ -7,6 +7,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from './store'
@@ -20,6 +21,12 @@ Vue.use(IdleVue, {
   // 閒置時間（單位：毫秒）
   idleTime: 1000*60*10
 })
+
+import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+Vue.use(ClientTable);
+Vue.use(ServerTable);
+
+
 
 const token = localStorage.getItem('token')
 if (token) {
