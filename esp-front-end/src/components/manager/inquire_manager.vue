@@ -52,7 +52,7 @@ export default {
                 filterByColumn:true,
                 filterable: ["id", "type", "dateTime"],
                 dateColumns: ["dateTime"],
-                dateFormat: 'YYYY-MM-DD hh:mm:ss',
+                dateFormat: 'YYYY/MM/DD HH:mm:ss',
                 datepickerOptions: { //See http://www.daterangepicker.com/#options
                     showDropdowns: true,
                     autoUpdateInput: true,
@@ -85,8 +85,10 @@ export default {
         this.axios.get("api/GET/transactions").then((res)=>{
             this.tableData = res.data;
             this.tableData.map(x => {
-                x.dateTime = moment(x.dateTime);
+                x.dateTime = moment(x.dateTime+" GMT+0000");
+                
             });
+            
         });
         
     },
