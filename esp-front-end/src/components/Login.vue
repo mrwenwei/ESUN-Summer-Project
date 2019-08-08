@@ -57,10 +57,12 @@ export default {
         .dispatch("login", { id, password })
         .then(() => {
           if (this.$store.getters.authToken == "Wrong account") {
+            alert("帳號錯誤")
             console.log(this.$store.getters.authToken);
             this.$store.dispatch("logout");
             this.$router.push("/");
           } else if (this.$store.getters.authToken == "Wrong password") {
+            alert("密碼錯誤")
             console.log(this.$store.getters.authToken);
             this.$store.dispatch("logout");
             this.$router.push("/");
