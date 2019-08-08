@@ -24,13 +24,15 @@
         </ul>
       </div>
     </nav>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 
 
 <script>
+
+
 export default {
   computed: {
     isLoggedIn: function() {

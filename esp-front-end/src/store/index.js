@@ -11,6 +11,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     user: {},
+    doc:'',
   },
   mutations: {
     auth_request(state) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
       state.status = ''
       state.token = ''
     },
+    edit(state, doc){
+      state.doc = doc
+    }, 
   },
   actions: {
     login({ commit }, user) {
@@ -58,10 +62,18 @@ export default new Vuex.Store({
         resolve()
       })
     },
+    edit({commit}, doc){
+      return new Promise((resolve, reject) => {
+        // localStorage.setItem('doc', doc)
+        commit('edit', doc)
+        resolve()
+      })
+    }
   },
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
-    authToken: state => state.token
+    authToken: state => state.token,
+    editedDoc: state => state.doc
   }
 })

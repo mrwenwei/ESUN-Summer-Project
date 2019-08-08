@@ -38,8 +38,8 @@
     <div class="row">{{checked}}{{searched}}</div>
     <div class="row h-100">
       <div class="col">
-      <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options"></v-client-table>
-      </div>  
+        <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options"></v-client-table>
+      </div>
     </div>
   </div>
 </template>
