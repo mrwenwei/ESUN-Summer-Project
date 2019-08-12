@@ -3,7 +3,7 @@
   <div class="container-fluid" style=" height:80%">
     <!-- login form -->
     <div class="row h-100 no-glutters justify-content-center">
-      <div class="col-md-4 align-self-center">
+      <div class="col-md-4 align-self-center ">
         <form v-on:submit.prevent="login">
           <!-- 帳號 -->
           <div class="form-group">
