@@ -9,11 +9,9 @@ import withdraw_customer from '@/components/customer/withdraw_customer'
 import home_manager from '@/components/manager/home_manager'
 import inquire_manager from '@/components/manager/inquire_manager'
 import verify_manager from '@/components/manager/verify_manager'
+import verify_teller from '@/components/teller/verify_teller'
 import home_teller from '@/components/teller/home_teller'
-import deposit_teller from '@/components/teller/deposit_teller'
 import inquire_teller from '@/components/teller/inquire_teller'
-import transfer_teller from '@/components/teller/transfer_teller'
-import withdraw_teller from '@/components/teller/withdraw_teller'
 
 Vue.use(VueRouter)
 import Vuex from 'vuex'
@@ -111,29 +109,9 @@ let router = new VueRouter({
       }
     },
     {
-      path: '/deposit_teller',
-      name: 'deposit_teller',
-      component: deposit_teller,
-      meta: {
-        requiresAuth: true,
-        allowAuth: 'teller'
-
-      }
-    },
-    {
-      path: '/transfer_teller',
-      name: 'transfer_teller',
-      component: transfer_teller,
-      meta: {
-        requiresAuth: true,
-        allowAuth: 'teller'
-
-      }
-    },
-    {
-      path: '/withdraw_teller',
-      name: 'withdraw_teller',
-      component: withdraw_teller,
+      path: '/verify_teller',
+      name: 'verify_teller',
+      component: verify_teller,
       meta: {
         requiresAuth: true,
         allowAuth: 'teller'

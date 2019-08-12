@@ -1,73 +1,146 @@
 <template>
   <div class="container-fluid h-100">
-    <div class="row no-glutters justify-content-center">
-      <div class="col">
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn">
-            <input type="checkbox" value="deposit" v-model="checked" /> 存款
-          </label>
-          <label class="btn">
-            <input type="checkbox" value="withdraw" v-model="checked" /> 提款
-          </label>
-          <label class="btn">
-            <input type="checkbox" value="transfer" v-model="checked" /> 匯款
-          </label>
-        </div>
-      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options">
+          <template slot="filter__finished">
+            <input type="radio" value="false" v-model="keywordFinished" @change="searchByFinished" />
+            <label for="one">待辦理</label>
 
-      <div class="col">
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn">
-            <input type="checkbox" value="todo" v-model="checked" /> 待辦理
-          </label>
-          <label class="btn">
-            <input type="checkbox" value="finish" v-model="checked" /> 已完成
-          </label>
-        </div>
-      </div>
+            <input type="radio" value="true" v-model="keywordFinished" @change="searchByFinished" />
+            <label for="one">已辦理</label>
+          </template>
 
-      <div class="col">
-        <div class="input-group">
-          <input type="text" class="form-control" v-model="searched" />
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">搜尋</button>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="row">{{checked}}{{searched}}</div>
-    <div class="row h-100">
-      <div class="col">
-        <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options"></v-client-table>
+          <template slot="finished" slot-scope="props">
+            <a
+              @click="edit(props.row.id)"
+              style="color:blue; cursor:pointer"
+            >{{ modifyItem(props.row.finished) }}</a>
+          </template>
+        </v-client-table>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import daterangepicker from "daterangepicker";
 export default {
   data() {
     return {
-      checked: [],
-      searched: "",
-      columns: [
-        "id",
-        "type",
-        "dateTime",
-        "branchCode",
-        "broker",
-        "receiptsData",
-        "finished",
-        "reviewed"
-      ],
+      editedDoc: "",
+      keywordFinished: null,
+      columns: ["id", "type", "dateTime", "broker", "finished"],
       tableData: [],
-      options: {}
+      options: {
+        perPage: 25,
+        headings: {
+          id: "ID",
+          type: "項目",
+          dateTime: "日期",
+          broker: "經手人",
+          finished: "辦理狀態"
+        },
+        requestFunction: function(params) {
+          return this.axios.get("api/GET/transactions", {
+            params: params
+          });
+        },
+        responseAdapter({ data }) {
+          return {
+            data,
+            count: data.length
+          };
+        },
+        filterByColumn: true,
+        filterable: ["id", "type", "dateTime"],
+        dateColumns: ["dateTime"],
+        dateFormat: "YYYY/MM/DD HH:mm:ss",
+        datepickerOptions: {
+          //See http://www.daterangepicker.com/#options
+          showDropdowns: true,
+          autoUpdateInput: true
+        },
+        listColumns: {
+          type: [
+            { id: "存款", text: "存款" },
+            { id: "取款", text: "取款" },
+            { id: "匯款", text: "匯款" }
+          ]
+        },
+        customFilters: [
+          {
+            name: "filterBySide",
+            callback: function(row, query) {
+              return row.id.toLowerCase().includes(query.toLowerCase());
+            }
+          },
+          {
+            name: "filterByFinished",
+            callback: function(row, query) {
+              return String(row.finished) == String(query);
+            }
+          }
+        ]
+      }
     };
   },
   created() {
     this.axios.get("api/GET/transactions").then(res => {
       this.tableData = res.data;
+      this.tableData.map(x => {
+        x.dateTime = moment(x.dateTime + " GMT+0000", "YYYY/MM/DD HH:mm:ss");
+      });
     });
+  },
+  methods: {
+    search(keyword) {
+      Event.$emit("vue-tables.filter::filterBySide", keyword);
+    },
+    searchByFinished() {
+      if (this.keywordFinished) {
+        Event.$emit(
+          "vue-tables.filter::filterByFinished",
+          this.keywordFinished
+        );
+      }
+    },
+    modifyItem(finished_) {
+      if (finished_) return "已辦理";
+      else return "待辦理";
+    },
+    edit(id) {
+      // update local table
+      this.axios.get("api/GET/transaction/" + id).then(res => {
+        for (let i = 0; i < this.tableData.length; i++) {
+          if (this.tableData[i].id == id) {
+            this.tableData[i] = res.data;
+            break;
+          }
+        }
+        if (res.data.finished != null) {
+          this.editedDoc = id;
+          this.$store
+            .dispatch("edit", this.editedDoc)
+            .then(() => {
+              // set the status to verifying
+              this.$router.push("verify_teller");
+            })
+            .catch(err => console.log(err));
+        } else {
+          confirm("此筆交易辦理中，請稍候！");
+        }
+      });
+    }
   }
 };
 </script>
+<style>
+@import "../../../node_modules/daterangepicker/daterangepicker.css";
+.VueTables__date-filter {
+  border: 1px solid #ccc;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>

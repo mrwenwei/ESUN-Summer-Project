@@ -1,41 +1,13 @@
 <template>
   <div class="container-fluid h-100">
     <div class="row">
-      <table class="table table-bordered" >
-        <!-- <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>-->
-        <tbody>
-          <tr>
-            <!-- <th scope="row">1</th> -->
-
-            <th style="width:25%">金額</th>
-            <td style="width:25%">amount</td>
-            <th style="width:25%">存款戶名/票據申請人</th>
-            <td style="width:25%">name</td>
-          </tr>
-
-          <tr>
-            <th rowspan="3" style="width:5%">擇一填寫</th>
-            <th style="width:5%">存款</th>
-            <th style="width:5%">帳號</th>
-            <td style="width:85%">Account</td>
-          </tr>
-
-          <tr>
-            <th style="width:100%">繳卡款</th>
-          </tr>
-
-          <tr>
-            <th style="width:100%">開立票據</th>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-outline-info btn-lg btn-block"
+          @click="toggle_reviewed"
+        >{{button_content}}</button>
+      </div>
     </div>
   </div>
 </template>
@@ -45,14 +17,35 @@ export default {
   data() {
     return {
       doc: "",
-      transact_data: ""
+      transact_data: "",
+      button_content: ""
     };
   },
   created() {
     this.doc = this.$store.getters.editedDoc;
     this.axios.get("api/GET/transaction/" + this.doc).then(res => {
       this.transact_data = res.data;
+      if (this.transact_data.reviewed)
+        this.button_content = "取消此筆交易之審核";
+      else this.button_content = "審核此筆交易";
     });
+  },
+  methods: {
+    toggle_reviewed() {
+      var mes = this.transact_data.reviewed
+        ? "您確定要取消此筆交易之審核嗎？"
+        : "您確定要審核此筆交易嗎？";
+      if (confirm(mes)) {
+        this.transact_data.reviewed = !this.transact_data.reviewed;
+        this.axios
+          .put("api/PUT/transaction/" + this.doc, this.transact_data)
+          .then(res => {
+            this.transact_data = res.data;
+            console.log(this.transact_data);
+          });
+        this.$router.push("inquire_manager");
+      }
+    }
   }
 };
 </script>
