@@ -11,13 +11,6 @@
             <label for="one">已審核</label>
           </template>
 
-          <!-- <a
-            slot="reviewed"
-            slot-scope="props"
-            @click="edit(props.row.id)"
-            
-          >{{ modifyItem(props.row.reviewed) }}</a>-->
-
           <template slot="reviewed" slot-scope="props">
             <a
               @click="edit(props.row.id)"
@@ -36,7 +29,7 @@ export default {
   data() {
     return {
       editedDoc: "",
-      keywordReviewed: false,
+      keywordReviewed: null,
       columns: ["id", "type", "dateTime", "broker", "reviewed"],
       tableData: [],
       options: {
@@ -96,7 +89,7 @@ export default {
     this.axios.get("api/GET/transactions").then(res => {
       this.tableData = res.data;
       this.tableData.map(x => {
-        x.dateTime = moment(x.dateTime + " GMT+0000");
+        x.dateTime = moment(x.dateTime + " GMT+0000", "YYYY/MM/DD HH:mm:ss");
       });
     });
   },
@@ -104,7 +97,7 @@ export default {
     search(keyword) {
       Event.$emit("vue-tables.filter::filterBySide", keyword);
     },
-    searchByReviewed(keywordReviewed) {
+    searchByReviewed() {
       if (this.keywordReviewed) {
         Event.$emit(
           "vue-tables.filter::filterByReviewed",
