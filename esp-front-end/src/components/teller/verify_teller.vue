@@ -44,7 +44,7 @@
             <span>帳號</span>
           </div>
           <div class="col-md-10 align-self-center" style="border:1px solid;height:100%;">
-            <span>{{transactDetail.depositAccount}}</span>
+            <span>{{receiptsData.transactDetail.depositAccount}}</span>
           </div>
         </div>
       </div>
@@ -80,13 +80,13 @@
                 <span>信用卡正戶姓名</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{transactDetail.creditCardUser}}</span>
+                <span>{{receiptsData.transactDetail.creditCardUser}}</span>
               </div>
               <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
                 <span>正卡戶統一編號</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{transactDetail.creditCardUserTaxNumber}}</span>
+                <span>{{receiptsData.transactDetail.creditCardUserTaxNumber}}</span>
               </div>
             </div>
           </div>
@@ -115,13 +115,13 @@
                 <span>票據類型</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{transactDetail.ticketType}}</span>
+                <span>{{receiptsData.transactDetail.ticketType}}</span>
               </div>
               <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
                 <span>禁止背書轉讓</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{transactDetail.prohibitTransfer}}</span>
+                <span>{{receiptsData.transactDetail.prohibitTransfer}}</span>
               </div>
             </div>
             <div class="row no-glutters" style=" height:50%;">
@@ -129,13 +129,13 @@
                 <span>抬頭</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{transactDetail.ticketHead}}</span>
+                <span>{{receiptsData.transactDetail.ticketHead}}</span>
               </div>
               <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
                 <span>票號</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{transactDetail.ticketNum}}</span>
+                <span>{{receiptsData.transactDetail.ticketNum}}</span>
               </div>
             </div>
           </div>
@@ -146,11 +146,11 @@
     <div class="row no-glutters"  >
       <!-- 背面資料 -->
       <div class="col-10">
-        <backData></backData>
+        <backData @question_updated="get_questionForm_data"></backData>
       </div>
       <!-- 現金明細 -->
       <div class="col-2" >
-    <cashDetail @cash_updated="get_child_data"></cashDetail>
+    <cashDetail @cash_updated="get_cashForm_data"></cashDetail>
       </div>
     </div>
 
@@ -172,13 +172,15 @@ import backData from './backData'
 export default {
   data() {
     return {
-       doc: "",
+      doc: "",
       transact_data: "",
       receiptsData: "",
-      transactDetail: "",
       button_content: "",
       cashForm:{
         
+      },
+      questionForm:{
+
       }
     };
   },
@@ -187,9 +189,7 @@ export default {
     this.axios.get("api/GET/transaction/" + this.doc).then(res => {
       this.transact_data = res.data;
       this.receiptsData = JSON.parse(res.data.receiptsData);
-      this.transactDetail = this.receiptsData.transactDetail;
-      console.log(this.transactDetail);
-      console.log(typeof this.transactDetail);
+     
       if (this.transact_data.finished) {
         this.button_content = "取消此筆交易之辦理";
       } else {
@@ -205,18 +205,26 @@ export default {
       if (confirm(mes)) {
         console.log(this.transact_data.finished);
         this.transact_data.finished = !this.transact_data.finished;
+        this.transact_data.cashDetail = JSON.stringify(this.cashForm);
+        this.transact_data.backData = JSON.stringify(this.backData);
+        console.log(this.transact_data.cashDetail)
         this.axios
           .put("api/PUT/transaction/" + this.doc, this.transact_data)
           .then(res => {
             this.transact_data = res.data;
             console.log(this.transact_data);
           });
+         
         this.$router.push("inquire_teller");
       }
     },
-    get_child_data(value) {
+    get_cashForm_data(value) {
       this.cashForm = value;
-      console.log(this.cashForm)
+
+    },
+    get_questionForm_data(value){
+      this.questionForm = value;
+      console.log(this.questionForm)
     }
   },
   components:{
