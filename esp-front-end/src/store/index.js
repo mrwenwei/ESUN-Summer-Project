@@ -10,17 +10,18 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    userId: '',
+    userAccount:localStorage.getItem('userAccount') || '',
     doc:'',
   },
   mutations: {
     auth_request(state) {
       state.status = 'loading'
     },
-    auth_success(state, token, userId) {
+    auth_success(state, payload) {
       state.status = 'success'
-      state.token = token
-      state.userId = userId
+      state.token = payload.token
+      state.userAccount = payload.userAccount
+      console.log(state.userAccount)
     },
     auth_error(state) {
       state.status = 'error'
@@ -42,11 +43,12 @@ export default new Vuex.Store({
           .then(resp => {
             
             const token = resp.data.role
-            const userid = resp.data.account
+            const userAccount = resp.data.account
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
-            commit('auth_success', token, resp.data.account)
-            console.log(this.getters.getUser)
+            localStorage.setItem('userAccount', userAccount)
+            console.log(userAccount)
+            commit('auth_success', {'token':token, 'userAccount':userAccount})
             resolve(resp)
           })
           .catch(err => {
@@ -77,6 +79,6 @@ export default new Vuex.Store({
     authStatus: state => state.status,
     authToken: state => state.token,
     editedDoc: state => state.doc,
-    getUser: state => state.userId
+    getUser: state => state.userAccount
   }
 })

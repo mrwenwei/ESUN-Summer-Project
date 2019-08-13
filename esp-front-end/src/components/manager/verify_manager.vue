@@ -2,13 +2,13 @@
   <div class="container-fluid" style=" height:80%">
     <!-- <div>{{transact_data}}</div> -->
     <div class="row no-glutters" style=" height:10%;">
-      <div class="col-md-3 align-self-center" style="solid;height:100%;">
+      <div class="col-md-3 align-self-center" style="height:100%;">
         <span>{{transact_data.dateTime}}</span>
       </div>
-      <div class="col-md-6 text-center" style=" solid;height:100%;">
+      <div class="col-md-6 text-center" style="height:100%;">
         <span>玉山銀行 存款憑條</span>
       </div>
-      <div class="col-md-3 align-self-center" style="solid;height:100%;">
+      <div class="col-md-3 align-self-center" style="height:100%;">
         <span></span>
       </div>
     </div>
@@ -161,7 +161,7 @@
 export default {
   data() {
     return {
-      id: "",
+      docId: "",
       transact_data: "",
       receiptsData: "",
       transactDetail: "",
@@ -169,8 +169,8 @@ export default {
     };
   },
   created() {
-    this.id = this.$store.getters.editedDoc;
-    this.axios.get("api/GET/transaction/" + this.id).then(res => {
+    this.docId = this.$store.getters.editedDoc;
+    this.axios.get("api/GET/transaction/" + this.docId).then(res => {
       this.transact_data = res.data;
       this.receiptsData = JSON.parse(res.data.receiptsData);
       this.transactDetail = this.receiptsData.transactDetail
@@ -189,7 +189,7 @@ export default {
       if (confirm(mes)) {
         this.transact_data.reviewed = !this.transact_data.reviewed;
         this.axios
-          .put("api/PUT/transaction/" + this.id, this.transact_data)
+          .put("api/PUT/transaction/" + this.docId, this.transact_data)
           .then(res => {
             this.transact_data = res.data;
           });
@@ -200,7 +200,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     this.transact_data.reviewedCondition = 0;
     this.axios
-      .put("api/PUT/transaction/" + this.id, this.transact_data)
+      .put("api/PUT/transaction/" + this.docId, this.transact_data)
       .then(res => {
         this.transact_data = res.data;
         next();

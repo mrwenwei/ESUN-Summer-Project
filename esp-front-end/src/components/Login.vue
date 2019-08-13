@@ -69,6 +69,7 @@ export default {
           } else {
             this.$router.push("/home_" + this.$store.getters.authToken);
             console.log(this.$store.getters.authToken);
+            console.log(this.$store.getters.getUser);
           }
         })
         .catch(err => console.log(err));

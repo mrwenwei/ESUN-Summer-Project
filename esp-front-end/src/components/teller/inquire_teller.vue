@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       keywordFinished: null,
-      columns: ["id", "type", "dateTime", "broker", "finished"],
+      columns: ["id", "type", "dateTime", "broker", "finished", "receiptsData."],
       tableData: [],
       options: {
         perPage: 25,
@@ -58,7 +58,8 @@ export default {
         datepickerOptions: {
           //See http://www.daterangepicker.com/#options
           showDropdowns: true,
-          autoUpdateInput: true
+          autoUpdateInput: true,
+          timePicker: true,
         },
         listColumns: {
           type: [
