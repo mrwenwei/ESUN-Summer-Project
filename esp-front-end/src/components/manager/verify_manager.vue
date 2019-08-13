@@ -2,13 +2,13 @@
   <div class="container-fluid" style=" height:80%">
     <!-- <div>{{transact_data}}</div> -->
     <div class="row no-glutters" style=" height:10%;">
-      <div class="col-md-3 align-self-center" style="solid;height:100%;">
+      <div class="col-md-3 align-self-center" style="height:100%;">
         <span>{{transact_data.dateTime}}</span>
       </div>
-      <div class="col-md-6 text-center" style=" solid;height:100%;">
+      <div class="col-md-6 text-center" style="height:100%;">
         <span>玉山銀行 存款憑條</span>
       </div>
-      <div class="col-md-3 align-self-center" style="solid;height:100%;">
+      <div class="col-md-3 align-self-center" style="height:100%;">
         <span></span>
       </div>
     </div>
