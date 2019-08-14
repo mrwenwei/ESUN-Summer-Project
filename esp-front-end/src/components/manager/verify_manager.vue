@@ -161,7 +161,7 @@
 export default {
   data() {
     return {
-      doc: "",
+      docId: "",
       transact_data: "",
       receiptsData: "",
       transactDetail: "",
@@ -169,8 +169,8 @@ export default {
     };
   },
   created() {
-    this.doc = this.$store.getters.editedDoc;
-    this.axios.get("api/GET/transaction/" + this.doc).then(res => {
+    this.docId = this.$store.getters.editedDoc;
+    this.axios.get("api/GET/transaction/" + this.docId).then(res => {
       this.transact_data = res.data;
       this.receiptsData = JSON.parse(res.data.receiptsData);
       this.transactDetail = this.receiptsData.transactDetail
@@ -189,14 +189,22 @@ export default {
       if (confirm(mes)) {
         this.transact_data.reviewed = !this.transact_data.reviewed;
         this.axios
-          .put("api/PUT/transaction/" + this.doc, this.transact_data)
+          .put("api/PUT/transaction/" + this.docId, this.transact_data)
           .then(res => {
             this.transact_data = res.data;
-            console.log(this.transact_data);
           });
         this.$router.push("inquire_manager");
       }
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.transact_data.reviewedCondition = 0;
+    this.axios
+      .put("api/PUT/transaction/" + this.docId, this.transact_data)
+      .then(res => {
+        this.transact_data = res.data;
+        next();
+      });
   }
 };
 </script>

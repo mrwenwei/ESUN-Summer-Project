@@ -17,10 +17,10 @@ export default new Vuex.Store({
     auth_request(state) {
       state.status = 'loading'
     },
-    auth_success(state, token, userAccount) {
+    auth_success(state, payload) {
       state.status = 'success'
-      state.token = token
-      state.userAccount = userAccount
+      state.token = payload.token
+      state.userAccount = payload.userAccount
       console.log(state.userAccount)
     },
     auth_error(state) {
@@ -38,16 +38,17 @@ export default new Vuex.Store({
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request')
-
+        
         axios({ url: '/api/POST/user/auth/' + user.id, data: user, method: 'POST' })
           .then(resp => {
+            
             const token = resp.data.role
             const userAccount = resp.data.account
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
             localStorage.setItem('userAccount', userAccount)
             console.log(userAccount)
-            commit('auth_success', token, userAccount)
+            commit('auth_success', {'token':token, 'userAccount':userAccount})
             resolve(resp)
           })
           .catch(err => {
@@ -66,7 +67,7 @@ export default new Vuex.Store({
       })
     },
     edit({commit}, doc){
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         // localStorage.setItem('doc', doc)
         commit('edit', doc)
         resolve()

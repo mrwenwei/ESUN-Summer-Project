@@ -1,160 +1,31 @@
 <template>
-  <div class="container-fluid h-100">
-    <!-- <div>{{transact_data}}</div> -->
-    <div class="row no-glutters" style=" height:10%;">
-      <div class="col-md-3 align-self-center" style="height:100%;">
-        <span>{{transact_data.dateTime}}</span>
-      </div>
-      <div class="col-md-6 text-center" style=" height:100%;">
-        <span>玉山銀行 存款憑條</span>
-      </div>
-      <div class="col-md-3 align-self-center" style="height:100%;">
-        <span></span>
-      </div>
-    </div>
-    <div class="row no-glutters" style=" height:10%;">
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-        <span>存款金額(新台幣)</span>
-      </div>
-
-      <div class="col-md-5 align-self-center" style="border:1px solid;height:100%;">
-        <span>{{receiptsData.depositAmount}}</span>
-      </div>
-
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-        <span>存款戶名/申請人</span>
-      </div>
-
-      <div class="col-md-5 align-self-center" style="border:1px solid;height:100%;">
-        <span>{{receiptsData.customerName}}</span>
-      </div>
-    </div>
-    <!-- 交易方式 -->
-    <div class="row no-glutters" v-if='receiptsData.depositMethod==="deposit"' style=" height:10%;">
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-        <span>交易方式</span>
-      </div>
-      <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
-        <!-- 存款 -->
-        <div class="row no-glutters" style=" height:100%;">
-          <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
-            <span>存款</span>
-          </div>
-          <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-            <span>帳號</span>
-          </div>
-          <div class="col-md-10 align-self-center" style="border:1px solid;height:100%;">
-            <span>{{receiptsData.transactDetail.depositAccount}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 交易方式 -->
-    <div
-      class="row no-glutters"
-      v-else-if='receiptsData.depositMethod=="creditCardFee"'
-      style=" height:30%;"
-    >
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-        <span>交易方式</span>
-      </div>
-      <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
-        <!-- 繳卡款 -->
-        <div class="row no-glutters" style=" height:100%;">
-          <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
-            <span>繳卡款</span>
-          </div>
-          <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
-            <div class="row no-glutters" style=" height:25%;">
-              <div class="col-md-12 align-self-center" style="border:1px solid;height:100%;">
-                <span>帳號：0598-440-011210</span>
-              </div>
-            </div>
-            <div class="row no-glutters" style=" height:25%;">
-              <div class="col-md-12 align-self-center" style="border:1px solid;height:100%;">
-                <span>戶名：玉山銀行股份有限公司信用卡暨支付金融事業處</span>
-              </div>
-            </div>
-            <div class="row no-glutters" style=" height:50%;">
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
-                <span>信用卡正戶姓名</span>
-              </div>
-              <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{receiptsData.transactDetail.creditCardUser}}</span>
-              </div>
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
-                <span>正卡戶統一編號</span>
-              </div>
-              <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{receiptsData.transactDetail.creditCardUserTaxNumber}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 交易方式 -->
-    <div
-      class="row no-glutters"
-      v-else-if='receiptsData.depositMethod=="ticket"'
-      style=" height:30%;"
-    >
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-        <span>交易方式</span>
-      </div>
-      <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
-        <!-- 開立票據 -->
-        <div class="row no-glutters" style=" height:100%;">
-          <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
-            <span>開立票據</span>
-          </div>
-          <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
-            <div class="row no-glutters" style=" height:50%;">
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
-                <span>票據類型</span>
-              </div>
-              <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{receiptsData.transactDetail.ticketType}}</span>
-              </div>
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
-                <span>禁止背書轉讓</span>
-              </div>
-              <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{receiptsData.transactDetail.prohibitTransfer}}</span>
-              </div>
-            </div>
-            <div class="row no-glutters" style=" height:50%;">
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
-                <span>抬頭</span>
-              </div>
-              <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{receiptsData.transactDetail.ticketHead}}</span>
-              </div>
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
-                <span>票號</span>
-              </div>
-              <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
-                <span>{{receiptsData.transactDetail.ticketNum}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row no-glutters"  >
-      <!-- 背面資料 -->
+  <div class="container-fluid" style="height:100%;">
+    <div class="row no-glutters" style="height:80%;">
       <div class="col-10">
-        <backData @question_updated="get_questionForm_data"></backData>
+        <!-- 單據顯示 -->
+        <div class="row no-glutters" style=" height:55%;">
+          <div class="col-12">
+            <depositTeller @infoPresent="get_infoPresent_data" @docIDReceive="get_docID"></depositTeller>
+          </div>
+        </div>
+
+        <!-- 背面資料 -->
+        <div class="row no-glutters" style=" height:45%;">
+          <div class="col-12">
+            <backData @question_updated="get_questionForm_data"></backData>
+          </div>
+        </div>
       </div>
       <!-- 現金明細 -->
-      <div class="col-2" >
-    <cashDetail @cash_updated="get_cashForm_data"></cashDetail>
+      <div class="col-2">
+        <p>
+          <br />
+        </p>
+        <cashDetail @cash_updated="get_cashForm_data"></cashDetail>
       </div>
     </div>
-
-    <div class="row">
+    <!-- 按鈕 -->
+    <div class="row no-glutters" style="height:10%;">
       <div class="col">
         <button
           type="button"
@@ -167,35 +38,26 @@
 </template>
 
 <script>
-import cashDetail from './cashDetail'
-import backData from './backData'
+import cashDetail from "./cashDetail";
+import backData from "./backData";
+import depositTeller from "./depositTeller";
 export default {
   data() {
     return {
-      doc: "",
-      transact_data: "",
-      receiptsData: "",
+      docId: "",
+      transact_data: {},
       button_content: "",
-      cashForm:{
-        
-      },
-      questionForm:{
-
-      }
+      cashForm: {},
+      questionForm: {}
     };
   },
-  created() {
-    this.doc = this.$store.getters.editedDoc;
-    this.axios.get("api/GET/transaction/" + this.doc).then(res => {
-      this.transact_data = res.data;
-      this.receiptsData = JSON.parse(res.data.receiptsData);
-     
-      if (this.transact_data.finished) {
-        this.button_content = "取消此筆交易之辦理";
-      } else {
-        this.button_content = "辦理此筆交易";
-      }
-    });
+  mounted() {
+    if (this.transact_data.finished) {
+      this.button_content = "取消此筆交易之辦理";
+    } else {
+      this.button_content = "辦理此筆交易";
+    }
+    // });
   },
   methods: {
     toggle_finished() {
@@ -203,33 +65,48 @@ export default {
         ? "您確定要取消此筆交易之辦理嗎？"
         : "您確定要辦理此筆交易嗎？";
       if (confirm(mes)) {
-        console.log(this.transact_data.finished);
         this.transact_data.finished = !this.transact_data.finished;
         this.transact_data.cashDetail = JSON.stringify(this.cashForm);
         this.transact_data.backData = JSON.stringify(this.backData);
-        console.log(this.transact_data.cashDetail)
+        if (this.transact_data.finished)
+          this.transact_data.broker = this.$store.getters.getUser;
+        else this.transact_data.broker = null;
+
         this.axios
-          .put("api/PUT/transaction/" + this.doc, this.transact_data)
+          .put("api/PUT/transaction/" + this.docId, this.transact_data)
           .then(res => {
             this.transact_data = res.data;
-            console.log(this.transact_data);
           });
-         
+
         this.$router.push("inquire_teller");
       }
     },
+    get_infoPresent_data(value) {
+      this.transact_data = value.transact_data;
+    },
+    get_docID(value) {
+      this.docId = value.docId;
+    },
     get_cashForm_data(value) {
       this.cashForm = value;
-
     },
-    get_questionForm_data(value){
+    get_questionForm_data(value) {
       this.questionForm = value;
-      console.log(this.questionForm)
     }
   },
-  components:{
-      cashDetail,
-      backData
+  beforeRouteLeave(to, from, next) {
+    this.transact_data.finishedCondition = 0;
+    this.axios
+      .put("api/PUT/transaction/" + this.docId, this.transact_data)
+      .then(res => {
+        this.transact_data = res.data;
+        next();
+      });
+  },
+  components: {
+    depositTeller,
+    cashDetail,
+    backData
   }
 };
 </script>

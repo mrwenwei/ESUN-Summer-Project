@@ -15,7 +15,7 @@
             <a
               @click="edit(props.row.id)"
               style="color:blue; cursor:pointer"
-            >{{ modifyItem(props.row.reviewed) }}</a>
+            >{{ modifyItem(props.row.reviewed, props.row.reviewedCondition) }}</a>
           </template>
         </v-client-table>
       </div>
@@ -28,7 +28,6 @@ import daterangepicker from "daterangepicker";
 export default {
   data() {
     return {
-      editedDoc: "",
       keywordReviewed: null,
       columns: ["id", "type", "dateTime", "broker", "reviewed"],
       tableData: [],
@@ -89,7 +88,7 @@ export default {
     this.axios.get("api/GET/transactions").then(res => {
       this.tableData = res.data;
       this.tableData.map(x => {
-        x.dateTime = moment(x.dateTime + " GMT+0000", "YYYY/MM/DD HH:mm:ss");
+        x.dateTime = moment(x.dateTime + " GMT+0000");
       });
     });
   },
@@ -105,22 +104,40 @@ export default {
         );
       }
     },
-    modifyItem(reviewed_) {
-      if (reviewed_) return "已審核";
+    modifyItem(reviewed, reviewedCondition) {
+      if (reviewedCondition) return "審核中"
+      else if (reviewed) return "已審核";
       else return "未審核";
     },
     edit(id) {
-      console.log(typeof id);
-      this.editedDoc = id;
-      console.log("editedDoc" + this.editedDoc);
-
-      this.$store
-        .dispatch("edit", this.editedDoc)
-        .then(() => {
-          console.log(this.editedDoc);
-          this.$router.push("verify_manager");
-        })
-        .catch(err => console.log(err));
+      // Update local table
+      this.axios.get("api/GET/transaction/" + id).then(res => {
+        for (let i = 0; i < this.tableData.length; i++) {
+          if (this.tableData[i].id == id) {
+            this.tableData[i] = res.data;
+            break;
+          }
+        }
+        // Handling race condition, 1 for free, 0 for busy
+        if (res.data.reviewedCondition == 0) {
+          this.$store
+            .dispatch("edit", id)
+            .then(() => {
+              // set the status to verifying
+              res.data.reviewedCondition = 1
+              this.axios
+              .put("api/PUT/transaction/" + id, res.data)
+              .then(put_res => {
+                console.log(put_res.data.reviewedCondition)
+                this.$router.push("verify_manager");
+              });
+              
+            })
+            .catch(err => console.log(err));
+        } else {
+          confirm("此筆交易辦理中，請稍候！");
+        }
+      });
     }
   }
 };
