@@ -1,7 +1,10 @@
 <template>
   <form>
     <div class="form-row" style="border:1px solid">
-      <label class="col-md-12 col-form-label col-form-label-sm text-center" style="border:1px solid;">銀行作業勾選欄位</label>
+      <label
+        class="col-md-12 col-form-label col-form-label-sm text-center"
+        style="border:1px solid;"
+      >銀行作業勾選欄位</label>
     </div>
     <!-- 第一大題 -->
     <div class="form-row">
@@ -165,6 +168,28 @@
         </select>
       </div>
     </div>
+
+    <!-- 第六大題 -->
+    <div class="form-row">
+      <label
+        for="question9"
+        class="col-md-4 col-form-label col-form-label-sm"
+        style="border:1px solid;"
+      >經判斷無詐騙之虞</label>
+      <div class="col-md-2" style="border:1px solid">
+        <select
+          class="form-control form-control-sm"
+          id="question9"
+          v-model="question9"
+          @change="send_to_parent"
+          required
+        >
+          <option value>請選擇</option>
+          <option value="是">是</option>
+          <option value="否">否</option>
+        </select>
+      </div>
+    </div>
   </form>
 </template>
 
@@ -179,8 +204,24 @@ export default {
       question5: "",
       question6: "",
       question7: "",
-      question8: ""
+      question8: "",
+      question9: ""
     };
+  },
+  methods: {
+    send_to_parent() {
+        this.$emit("question_updated", {
+            question1: this.question1,
+            question2: this.question2,
+            question3: this.question3,
+            question4: this.question4,
+            question5: this.question5,
+            question6: this.question6,
+            question7: this.question7,
+            question8: this.question8,
+            question9: this.question9
+        });
+    }
   }
 };
 </script>
