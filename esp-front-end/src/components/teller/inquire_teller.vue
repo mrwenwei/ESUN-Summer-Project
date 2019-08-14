@@ -15,7 +15,13 @@
             <a
               @click="edit(props.row.id)"
               style="color:blue; cursor:pointer"
-            >{{ modifyItem(props.row.finished, props.row.finishedCondition) }}</a>
+            >{{ modifyFinished(props.row.finished, props.row.finishedCondition) }}</a>
+          </template>
+          <template slot="顧客姓名" slot-scope="props">
+            {{ modifyReceiptsDataName(props.row.receiptsData) }}
+          </template>
+          <template slot="交易金額" slot-scope="props">
+            {{ modifyReceiptsDataAmount(props.row.receiptsData) }}
           </template>
         </v-client-table>
       </div>
@@ -29,16 +35,17 @@ export default {
   data() {
     return {
       keywordFinished: null,
-      columns: ["id", "type", "dateTime", "broker", "finished", "receiptsData."],
+      columns: ["type", "id", "顧客姓名", "交易金額", "dateTime", "broker", "finishedTime", "finished"],
       tableData: [],
       options: {
         perPage: 25,
         headings: {
           id: "ID",
           type: "項目",
-          dateTime: "日期",
+          dateTime: "申請時間",
           broker: "經手人",
-          finished: "辦理狀態"
+          finished: "辦理狀態",
+          finishedTime: "交易完成時間"
         },
         requestFunction: function(params) {
           return this.axios.get("api/GET/transactions", {
@@ -90,6 +97,8 @@ export default {
       this.tableData = res.data;
       this.tableData.map(x => {
         x.dateTime = moment(x.dateTime + " GMT+0000");
+        if (x.finishedTime) 
+          x.finishedTime = moment(x.finishedTime + " GMT+0000");
       });
     });
   },
@@ -105,10 +114,18 @@ export default {
         );
       }
     },
-    modifyItem(finished, finishedCondition) {
+    modifyFinished(finished, finishedCondition) {
       if (finishedCondition) return "辦理中"
       else if (finished) return "已辦理";
       else return "待辦理";
+    },
+    modifyReceiptsDataName(receiptsData) {
+      var receipts = JSON.parse(receiptsData)
+      return receipts.customerName;
+    },
+    modifyReceiptsDataAmount(receiptsData) {
+      var receipts = JSON.parse(receiptsData)
+      return bigdecimal.BigInteger(receipts.depositAmount);
     },
     edit(id) {
       // Update local table

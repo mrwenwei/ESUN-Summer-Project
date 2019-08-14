@@ -23,6 +23,7 @@ Vue.config.productionTip = false
 window.$ = window.jQuery = require('jquery');
 //moment.js
 window.moment = require('moment');
+window.bigdecimal = require("bigdecimal");
 
 const eventsHub = new Vue()
  

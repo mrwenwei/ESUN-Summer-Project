@@ -17,6 +17,13 @@
               style="color:blue; cursor:pointer"
             >{{ modifyItem(props.row.reviewed, props.row.reviewedCondition) }}</a>
           </template>
+          <template slot="顧客姓名" slot-scope="props">
+            {{ modifyReceiptsDataName(props.row.receiptsData) }}
+          </template>
+          <template slot="交易金額" slot-scope="props">
+            {{ modifyReceiptsDataAmount(props.row.receiptsData) }}
+          </template>
+
         </v-client-table>
       </div>
     </div>
@@ -29,16 +36,17 @@ export default {
   data() {
     return {
       keywordReviewed: null,
-      columns: ["id", "type", "dateTime", "broker", "reviewed"],
+      columns: ["type", "id", "顧客姓名", "交易金額", "dateTime", "broker", "finishedTime", "reviewed"],
       tableData: [],
       options: {
         perPage: 25,
         headings: {
           id: "ID",
           type: "項目",
-          dateTime: "日期",
+          dateTime: "申請時間",
           broker: "經手人",
-          reviewed: "審核結果"
+          reviewed: "審核結果",
+          finishedTime: "交易完成時間"
         },
         requestFunction: function(params) {
           return this.axios.get("api/GET/transactions", {
@@ -89,6 +97,8 @@ export default {
       this.tableData = res.data;
       this.tableData.map(x => {
         x.dateTime = moment(x.dateTime + " GMT+0000");
+        if (x.finishedTime) 
+          x.finishedTime = moment(x.finishedTime + " GMT+0000");
       });
     });
   },
@@ -108,6 +118,14 @@ export default {
       if (reviewedCondition) return "審核中"
       else if (reviewed) return "已審核";
       else return "未審核";
+    },
+    modifyReceiptsDataName(receiptsData) {
+      var receipts = JSON.parse(receiptsData)
+      return receipts.customerName;
+    },
+    modifyReceiptsDataAmount(receiptsData) {
+      var receipts = JSON.parse(receiptsData)
+      return bigdecimal.BigInteger(receipts.depositAmount);
     },
     edit(id) {
       // Update local table

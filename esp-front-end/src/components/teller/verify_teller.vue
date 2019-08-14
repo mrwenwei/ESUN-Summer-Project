@@ -188,8 +188,6 @@ export default {
       this.transact_data = res.data;
       this.receiptsData = JSON.parse(res.data.receiptsData);
       this.transactDetail = this.receiptsData.transactDetail;
-      console.log(this.transactDetail);
-      console.log(typeof this.transactDetail);
       if (this.transact_data.finished) {
         this.button_content = "取消此筆交易之辦理";
       } else {
@@ -204,8 +202,10 @@ export default {
         : "您確定要辦理此筆交易嗎？";
       if (confirm(mes)) {
         this.transact_data.finished = !this.transact_data.finished;
-        if (this.transact_data.finished)
+        if (this.transact_data.finished) {
           this.transact_data.broker = this.$store.getters.getUser;
+          this.transact_data.finishedTime = moment();
+        }
         else
           this.transact_data.broker = null;
 
@@ -213,14 +213,12 @@ export default {
           .put("api/PUT/transaction/" + this.docId, this.transact_data)
           .then(res => {
             this.transact_data = res.data;
-            console.log(this.transact_data.broker)
           });
         this.$router.push("inquire_teller");
       }
     },
     get_child_data(value) {
       this.cashForm = value;
-      console.log(this.cashForm)
     }
   },
   beforeRouteLeave(to, from, next) {
