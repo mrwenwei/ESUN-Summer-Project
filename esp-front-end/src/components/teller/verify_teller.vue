@@ -41,6 +41,7 @@
 import cashDetail from "./cashDetail";
 import backData from "./backData";
 import depositTeller from "./depositTeller";
+
 export default {
   data() {
     return {
@@ -51,14 +52,22 @@ export default {
       questionForm: {}
     };
   },
-  // mounted() {
-  //   if (this.transact_data.finished) {
-  //     this.button_content = "取消此筆交易之辦理";
-  //   } else {
-  //     this.button_content = "辦理此筆交易";
-  //   }
-  // },
+  created() {
+    window.addEventListener('beforeunload', this.handler)
+  },
+  beforeDestroy() {
+    window.removeEventListener('beforeunload', this.handler)
+  },
   methods: {
+    // Detect close the tab or reload.
+    handler: function handler(event) {
+      this.transact_data.finishedCondition = 0;
+      this.axios
+        .put("api/PUT/transaction/" + this.docId, this.transact_data)
+        .then(res => {
+          this.transact_data = res.data;
+        }).catch(err => console.log(err));
+    },
     toggle_finished() {
       var mes = this.transact_data.finished
         ? "您確定要取消此筆交易之辦理嗎？"
@@ -69,9 +78,10 @@ export default {
           this.transact_data.broker = this.$store.getters.getUser;
           this.transact_data.finishedTime = moment();
         }
-        else
+        else {
           this.transact_data.broker = null;
-          
+          this.transact_data.finishedTime = null;
+        }
         this.transact_data.cashDetail = JSON.stringify(this.cashForm);
         this.transact_data.backData = JSON.stringify(this.backData);
 
@@ -85,12 +95,20 @@ export default {
       }
     },
     get_infoPresent_data(value) {
+      // after created
       this.transact_data = value.transact_data;
       if (this.transact_data.finished) {
-      this.button_content = "取消此筆交易之辦理";
-    } else {
-      this.button_content = "辦理此筆交易";
-    }
+        this.button_content = "取消此筆交易之辦理";
+      } else {
+        this.button_content = "辦理此筆交易";
+      }
+      // set the status to verifying
+      this.transact_data.finishedCondition = 1
+      this.axios
+      .put("api/PUT/transaction/" + this.docId, this.transact_data)
+      .then(put_res => {
+        console.log(put_res.data)
+      });
     },
     get_docID(value) {
       this.docId = value.docId;

@@ -136,20 +136,12 @@ export default {
             break;
           }
         }
-        // Handling race condition, 1 for free, 0 for busy
+        // Handling race condition, 1 for free(enter), 0 for busy(stay)
         if (res.data.finishedCondition == 0) {
           this.$store
             .dispatch("edit", id)
             .then(() => {
-              // set the status to verifying
-              res.data.finishedCondition = 1
-              this.axios
-              .put("api/PUT/transaction/" + id, res.data)
-              .then(put_res => {
-                console.log(put_res.data.finishedCondition)
-                this.$router.push("verify_teller");
-              });
-              
+              this.$router.push("verify_teller");
             })
             .catch(err => console.log(err));
         } else {

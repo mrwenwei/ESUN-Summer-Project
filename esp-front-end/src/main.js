@@ -25,6 +25,18 @@ window.$ = window.jQuery = require('jquery');
 window.moment = require('moment');
 window.bigdecimal = require("bigdecimal");
 
+// window.onbeforeunload = function(){
+//   if (store.getters.editedDoc != '') {
+//     axios.get("api/GET/transaction/" + store.getters.editedDoc).then(res => {
+//       res.data.finishedCondition = 0;
+//       axios.put("api/PUT/transaction/" + store.getters.editedDoc, res.data).then(put_res => {
+//         console.log(put_res.data);
+//       });
+//     });
+//   }
+//   return "Are you sure you want to close the window?";
+// }
+
 const eventsHub = new Vue()
  
 Vue.use(IdleVue, {
