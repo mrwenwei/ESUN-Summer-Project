@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid" style=" height:100%;">
-    <div class="row no-glutters" style=" height:10%;">
+    <p><br></p>
+    <div class="row no-glutters" style=" border:1px solid;height:10%;">
       <div class="col-md-3 align-self-center" style="height:100%;">
         <span>{{transact_data.dateTime}}</span>
       </div>
@@ -12,15 +13,15 @@
       </div>
     </div>
     <div class="row no-glutters" style=" height:15%;">
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
-        <span>存款金額(新台幣)</span>
+      <div class="col-md-1 align-self-center " style="border:1px solid;height:100%;">
+        <span>存款金額</span>
       </div>
 
       <div class="col-md-5 align-self-center" style="border:1px solid;height:100%;">
         <span>{{receiptsData.depositAmount}}</span>
       </div>
 
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
+      <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
         <span>戶名/申請人</span>
       </div>
 
@@ -30,7 +31,7 @@
     </div>
     <!-- 交易方式 -->
     <div class="row no-glutters" v-if='receiptsData.depositMethod==="deposit"' style=" height:15%;">
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
+      <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
         <span>交易方式</span>
       </div>
       <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
@@ -38,7 +39,7 @@
           <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
             <span>存款</span>
           </div>
-          <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
+          <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
             <span>帳號</span>
           </div>
           <div class="col-md-10 align-self-center" style="border:1px solid;height:100%;">
@@ -53,7 +54,7 @@
       v-else-if='receiptsData.depositMethod=="creditCardFee"'
       style=" height:45%;"
     >
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
+      <div class="col-md-1 align-self-center" style="border:1px solid;height:100%;">
         <span>交易方式</span>
       </div>
       <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
@@ -73,13 +74,13 @@
               </div>
             </div>
             <div class="row no-glutters" style=" height:50%;">
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
+              <div class="col-md-2 align-self-center " style="border:1px solid;height:100%;">
                 <span>信用卡正戶姓名</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
                 <span>{{receiptsData.transactDetail.creditCardUser}}</span>
               </div>
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
+              <div class="col-md-2 align-self-center" style="border:1px solid;height:100%;">
                 <span>正卡戶統一編號</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
@@ -96,7 +97,7 @@
       v-else-if='receiptsData.depositMethod=="ticket"'
       style=" height:30%;"
     >
-      <div class="col-md-1 align-self-center bg-info" style="border:1px solid;height:100%;">
+      <div class="col-md-1 align-self-center " style="border:1px solid;height:100%;">
         <span>交易方式</span>
       </div>
       <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
@@ -106,13 +107,13 @@
           </div>
           <div class="col-md-11 align-self-center" style="border:1px solid;height:100%;">
             <div class="row no-glutters" style=" height:50%;">
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
+              <div class="col-md-2 align-self-center " style="border:1px solid;height:100%;">
                 <span>票據類型</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
                 <span>{{receiptsData.transactDetail.ticketType}}</span>
               </div>
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
+              <div class="col-md-2 align-self-center " style="border:1px solid;height:100%;">
                 <span>禁止背書轉讓</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
@@ -120,13 +121,13 @@
               </div>
             </div>
             <div class="row no-glutters" style=" height:50%;">
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
+              <div class="col-md-2 align-self-center " style="border:1px solid;height:100%;">
                 <span>抬頭</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">
                 <span>{{receiptsData.transactDetail.ticketHead}}</span>
               </div>
-              <div class="col-md-2 align-self-center bg-info" style="border:1px solid;height:100%;">
+              <div class="col-md-2 align-self-center " style="border:1px solid;height:100%;">
                 <span>票號</span>
               </div>
               <div class="col-md-4 align-self-center" style="border:1px solid;height:100%;">

@@ -51,14 +51,13 @@ export default {
       questionForm: {}
     };
   },
-  mounted() {
-    if (this.transact_data.finished) {
-      this.button_content = "取消此筆交易之辦理";
-    } else {
-      this.button_content = "辦理此筆交易";
-    }
-    // });
-  },
+  // mounted() {
+  //   if (this.transact_data.finished) {
+  //     this.button_content = "取消此筆交易之辦理";
+  //   } else {
+  //     this.button_content = "辦理此筆交易";
+  //   }
+  // },
   methods: {
     toggle_finished() {
       var mes = this.transact_data.finished
@@ -72,6 +71,7 @@ export default {
         }
         else
           this.transact_data.broker = null;
+          
         this.transact_data.cashDetail = JSON.stringify(this.cashForm);
         this.transact_data.backData = JSON.stringify(this.backData);
 
@@ -86,6 +86,11 @@ export default {
     },
     get_infoPresent_data(value) {
       this.transact_data = value.transact_data;
+      if (this.transact_data.finished) {
+      this.button_content = "取消此筆交易之辦理";
+    } else {
+      this.button_content = "辦理此筆交易";
+    }
     },
     get_docID(value) {
       this.docId = value.docId;

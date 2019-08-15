@@ -35,7 +35,6 @@ Vue.use(IdleVue, {
 
 
 
-const userAccount = localStorage.getItem('userAccount')
 const token = localStorage.getItem('token')
 if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = token

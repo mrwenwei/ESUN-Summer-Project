@@ -26,6 +26,9 @@
           <option value="否">否</option>
         </select>
       </div>
+
+      <div class="col-4" style="border:1px solid"></div>
+      <div class="col-2" style="border:1px solid"></div>
     </div>
 
     <!-- 第二大題 -->
@@ -49,16 +52,19 @@
         </select>
       </div>
       <!-- 第二題 追問 -->
+      <div class="col-md-4"  style="border:1px solid">
       <label
         for="question3"
-        class="col-md-4 col-form-label col-form-label-sm"
-        style="border:1px solid;"
+        class=" col-form-label col-form-label-sm"
+        v-if='question2==="是"'
       >如是，與受款人關係為</label>
+      </div>
       <div class="col-md-2" style="border:1px solid">
         <input
           type="text"
           class="form-control form-control-sm"
           id="question3"
+          v-if='question2==="是"'
           placeholder="請輸入"
           v-model="question3"
           @input="send_to_parent"
@@ -127,15 +133,18 @@
         </select>
       </div>
       <!-- 第四大題 追問 -->
+      <div class="col-md-4" style="border:1px solid">
       <label
         for="question7"
-        class="col-md-4 col-form-label col-form-label-sm"
-        style="border:1px solid;"
+        class="col-form-label col-form-label-sm"
+        v-if='question6==="是"'
       >如是，請續答，家人是否知悉此筆交易</label>
+      </div>
       <div class="col-md-2" style="border:1px solid">
         <select
           class="form-control form-control-sm"
           id="question7"
+          v-if='question6==="是"'
           v-model="question7"
           @change="send_to_parent"
           required
@@ -167,10 +176,7 @@
           <option value="否">否</option>
         </select>
       </div>
-    </div>
-
-    <!-- 第六大題 -->
-    <div class="form-row">
+      <!-- 第六大題 -->
       <label
         for="question9"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -210,17 +216,17 @@ export default {
   },
   methods: {
     send_to_parent() {
-        this.$emit("question_updated", {
-            question1: this.question1,
-            question2: this.question2,
-            question3: this.question3,
-            question4: this.question4,
-            question5: this.question5,
-            question6: this.question6,
-            question7: this.question7,
-            question8: this.question8,
-            question9: this.question9
-        });
+      this.$emit("question_updated", {
+        question1: this.question1,
+        question2: this.question2,
+        question3: this.question3,
+        question4: this.question4,
+        question5: this.question5,
+        question6: this.question6,
+        question7: this.question7,
+        question8: this.question8,
+        question9: this.question9
+      });
     }
   }
 };
