@@ -141,15 +141,7 @@ export default {
           this.$store
             .dispatch("edit", id)
             .then(() => {
-              // set the status to verifying
-              res.data.reviewedCondition = 1
-              this.axios
-              .put("api/PUT/transaction/" + id, res.data)
-              .then(put_res => {
-                console.log(put_res.data.reviewedCondition)
-                this.$router.push("verify_manager");
-              });
-              
+              this.$router.push("verify_manager"); 
             })
             .catch(err => console.log(err));
         } else {
