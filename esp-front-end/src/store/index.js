@@ -11,7 +11,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     userAccount:localStorage.getItem('userAccount') || '',
-    doc:'',
+    doc:localStorage.getItem('doc') || '',
   },
   mutations: {
     auth_request(state) {
@@ -21,7 +21,6 @@ export default new Vuex.Store({
       state.status = 'success'
       state.token = payload.token
       state.userAccount = payload.userAccount
-      console.log(state.userAccount)
     },
     auth_error(state) {
       state.status = 'error'
@@ -29,6 +28,8 @@ export default new Vuex.Store({
     logout(state) {
       state.status = ''
       state.token = ''
+      state.userAccount = ''
+      state.doc = ''
     },
     edit(state, doc){
       state.doc = doc
@@ -62,13 +63,15 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('logout')
         localStorage.removeItem('token')
+        localStorage.removeItem('userAccount')
+        localStorage.removeItem('doc')
         delete axios.defaults.headers.common['Authorization']
         resolve()
       })
     },
     edit({commit}, doc){
       return new Promise((resolve) => {
-        // localStorage.setItem('doc', doc)
+        localStorage.setItem('doc', doc)
         commit('edit', doc)
         resolve()
       })
