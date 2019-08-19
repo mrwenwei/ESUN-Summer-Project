@@ -18,7 +18,6 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from '../store'
 
-
 let router = new VueRouter({
   mode: 'history',
   routes: [
@@ -26,8 +25,13 @@ let router = new VueRouter({
       path: '/',
       name: 'login',
       component: login,
-
-
+      beforeEnter: (to, from, next) => {
+        if(store.getters.isLoggedIn){
+          next('home_'+store.getters.authToken)
+        }else{
+          next()
+        }
+      }
     },
     {
       path: '/home_customer',
@@ -138,7 +142,6 @@ let router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
-      // console.log("your token:" + store.getters.authToken)
 
       if (to.matched.some(record => record.meta.allowAuth)) {
 
@@ -147,13 +150,11 @@ router.beforeEach((to, from, next) => {
           next()
           return
         } else {
-          console.log("權限不符")
           next('/')
         }
       }
 
     } else {
-      console.log("you are not login")
       next('/')
     }
 

@@ -107,7 +107,6 @@ export default {
       this.axios
       .put("api/PUT/transaction/" + this.docId, this.transact_data)
       .then(put_res => {
-        console.log(put_res.data)
       });
     },
     get_docID(value) {

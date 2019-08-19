@@ -14,7 +14,7 @@
         style="border:1px solid;"
       >1.申請人是否接到陌生者、檢調單位等電話指示</label>
       <div class="col-md-2" style="border:1px solid">
-        <select
+        <!-- <select
           class="form-control form-control-sm"
           id="question1"
           v-model="question1"
@@ -24,7 +24,8 @@
           <option value>請選擇</option>
           <option value="是">是</option>
           <option value="否">否</option>
-        </select>
+        </select> -->
+        <span >q1</span>
       </div>
 
       <div class="col-4" style="border:1px solid"></div>
@@ -32,7 +33,7 @@
     </div>
 
     <!-- 第二大題 -->
-    <div class="form-row">
+    <!-- <div class="form-row">
       <label
         for="question2"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -51,7 +52,6 @@
           <option value="否">否</option>
         </select>
       </div>
-      <!-- 第二題 追問 -->
       <div class="col-md-4"  style="border:1px solid">
       <label
         for="question3"
@@ -71,10 +71,10 @@
           required
         />
       </div>
-    </div>
+    </div> -->
 
     <!-- 第三大題 -->
-    <div class="form-row">
+    <!-- <div class="form-row">
       <label
         for="question4"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -91,7 +91,6 @@
           required
         />
       </div>
-      <!-- 第三大題 追問 -->
       <label
         for="question5"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -110,10 +109,10 @@
           <option value="否">否</option>
         </select>
       </div>
-    </div>
+    </div> -->
 
     <!-- 第四大題 -->
-    <div class="form-row">
+    <!-- <div class="form-row">
       <label
         for="question6"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -132,7 +131,6 @@
           <option value="否">否</option>
         </select>
       </div>
-      <!-- 第四大題 追問 -->
       <div class="col-md-4" style="border:1px solid">
       <label
         for="question7"
@@ -154,10 +152,10 @@
           <option value="否">否</option>
         </select>
       </div>
-    </div>
+    </div> -->
 
-    <!-- 第五大題 -->
-    <div class="form-row">
+    <!-- 第五六大題 -->
+    <!-- <div class="form-row">
       <label
         for="question8"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -176,7 +174,6 @@
           <option value="否">否</option>
         </select>
       </div>
-      <!-- 第六大題 -->
       <label
         for="question9"
         class="col-md-4 col-form-label col-form-label-sm"
@@ -195,7 +192,7 @@
           <option value="否">否</option>
         </select>
       </div>
-    </div>
+    </div> -->
   </form>
 </template>
 
@@ -203,31 +200,45 @@
 export default {
   data() {
     return {
-      question1: "",
-      question2: "",
-      question3: "",
-      question4: "",
-      question5: "",
-      question6: "",
-      question7: "",
-      question8: "",
-      question9: ""
+    //   question1: "",
+    //   question2: "",
+    //   question3: "",
+    //   question4: "",
+    //   question5: "",
+    //   question6: "",
+    //   question7: "",
+    //   question8: "",
+    //   question9: "",
+      transact_data:{
+
+      },
+      backData:{
+          
+      }
     };
   },
   methods: {
-    send_to_parent() {
-      this.$emit("question_updated", {
-        question1: this.question1,
-        question2: this.question2,
-        question3: this.question3,
-        question4: this.question4,
-        question5: this.question5,
-        question6: this.question6,
-        question7: this.question7,
-        question8: this.question8,
-        question9: this.question9
-      });
-    }
+    // send_to_parent() {
+    //   this.$emit("question_updated", {
+    //     question1: this.question1,
+    //     question2: this.question2,
+    //     question3: this.question3,
+    //     question4: this.question4,
+    //     question5: this.question5,
+    //     question6: this.question6,
+    //     question7: this.question7,
+    //     question8: this.question8,
+    //     question9: this.question9
+    //   });
+    // }
+  },
+  created(){
+    this.docId = this.$store.getters.editedDoc;
+    this.axios.get("api/GET/transaction/" + this.docId).then(res => {
+      this.transact_data = res.data;
+      this.backData = JSON.parse(res.data.backData);
+      console.log(this.backData)
+    });
   }
 };
 </script>

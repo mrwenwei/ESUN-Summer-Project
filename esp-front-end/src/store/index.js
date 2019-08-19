@@ -42,13 +42,11 @@ export default new Vuex.Store({
         
         axios({ url: '/api/POST/user/auth/' + user.id, data: user, method: 'POST' })
           .then(resp => {
-            
             const token = resp.data.role
             const userAccount = resp.data.account
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
             localStorage.setItem('userAccount', userAccount)
-            console.log(userAccount)
             commit('auth_success', {'token':token, 'userAccount':userAccount})
             resolve(resp)
           })

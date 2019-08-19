@@ -16,8 +16,12 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <span class="navbar-brand text-light">電子表單系統</span>
+        <!-- <span class="navbar-brand text-light">{{userInfo}}</span> -->
 
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <label v-if="isLoggedIn" class="text-light nav-link">{{ userInfo() }}，您好</label>
+          </li>
           <li class="nav-item">
             <a v-if="isLoggedIn" class="nav-link" href="#" @click="logout">Logout</a>
           </li>
@@ -28,11 +32,7 @@
   </div>
 </template>
 
-
-
 <script>
-
-
 export default {
   computed: {
     isLoggedIn: function() {
@@ -57,19 +57,20 @@ export default {
       } else {
         console.log("沒事按到ㄅ歉");
       }
+    },
+    userInfo() {
+      console.log(this.$store.getters.getUser)
+      return this.$store.getters.getUser;
     }
   },
-
   onIdle() {
     alert("閒置過久，請重新登入");
     this.$store.dispatch("logout");
     this.$router.push("/");
     console.log("閒置過久，已登出");
-  }
+  },
 };
 </script>
-
-
 <style>
 html,
 body,

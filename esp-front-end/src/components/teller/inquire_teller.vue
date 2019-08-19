@@ -35,12 +35,13 @@ export default {
   data() {
     return {
       keywordFinished: null,
-      columns: ["type", "id", "顧客姓名", "交易金額", "dateTime", "broker", "finishedTime", "finished"],
+      columns: ["type", "tnum", "顧客姓名", "交易金額", "dateTime", "broker", "finishedTime", "finished"],
       tableData: [],
       options: {
+        perPageValues: [],
         perPage: 25,
         headings: {
-          id: "ID",
+          tnum: "交易編號",
           type: "項目",
           dateTime: "申請時間",
           broker: "經手人",

@@ -5,10 +5,10 @@
         <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options">
           <template slot="filter__reviewed">
             <input type="radio" value="false" v-model="keywordReviewed" @change="searchByReviewed" />
-            <label for="one">未審核</label>
+            <label for="one">通過</label>
 
             <input type="radio" value="true" v-model="keywordReviewed" @change="searchByReviewed" />
-            <label for="one">已審核</label>
+            <label for="one">退件</label>
           </template>
 
           <template slot="reviewed" slot-scope="props">
@@ -36,17 +36,17 @@ export default {
   data() {
     return {
       keywordReviewed: null,
-      columns: ["type", "id", "顧客姓名", "交易金額", "dateTime", "broker", "finishedTime", "reviewed"],
+      columns: ["type", "tnum", "顧客姓名", "交易金額", "dateTime", "broker", "reviewed"],
       tableData: [],
       options: {
+        perPageValues: [],
         perPage: 25,
         headings: {
-          id: "ID",
+          tnum: "交易編號",
           type: "項目",
           dateTime: "申請時間",
           broker: "經手人",
           reviewed: "審核結果",
-          finishedTime: "交易完成時間"
         },
         requestFunction: function(params) {
           return this.axios.get("api/GET/transactions", {
@@ -116,8 +116,8 @@ export default {
     },
     modifyItem(reviewed, reviewedCondition) {
       if (reviewedCondition) return "審核中"
-      else if (reviewed) return "已審核";
-      else return "未審核";
+      else if (reviewed) return "退件";
+      else return "通過";
     },
     modifyReceiptsDataName(receiptsData) {
       var receipts = JSON.parse(receiptsData)
@@ -141,7 +141,7 @@ export default {
           this.$store
             .dispatch("edit", id)
             .then(() => {
-              this.$router.push("verify_manager"); 
+              this.$router.push("verify_manager");
             })
             .catch(err => console.log(err));
         } else {
