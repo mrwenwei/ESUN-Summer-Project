@@ -83,8 +83,8 @@ export default {
           this.transact_data.finishedTime = null;
         }
         this.transact_data.cashDetail = JSON.stringify(this.cashForm);
-        this.transact_data.backData = JSON.stringify(this.backData);
-
+        this.transact_data.backData = JSON.stringify(this.questionForm);
+        
         this.axios
           .put("api/PUT/transaction/" + this.docId, this.transact_data)
           .then(res => {

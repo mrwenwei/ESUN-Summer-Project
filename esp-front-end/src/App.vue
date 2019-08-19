@@ -15,8 +15,8 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <span class="navbar-brand text-light">電子表單系統</span>
-        <!-- <span class="navbar-brand text-light">{{userInfo}}</span> -->
+        <!-- <span class="navbar-brand text-light">電子表單系統</span> -->
+        <a class="navbar-brand text-light" href="/">玉山銀行電子表單系統</a>
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
@@ -59,7 +59,7 @@ export default {
       }
     },
     userInfo() {
-      console.log(this.$store.getters.getUser)
+      console.log(this.$store.getters.getUser);
       return this.$store.getters.getUser;
     }
   },
@@ -68,7 +68,7 @@ export default {
     this.$store.dispatch("logout");
     this.$router.push("/");
     console.log("閒置過久，已登出");
-  },
+  }
 };
 </script>
 <style>
@@ -76,5 +76,6 @@ html,
 body,
 #app {
   height: 100%;
+  
 }
 </style>
