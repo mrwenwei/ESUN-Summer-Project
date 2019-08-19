@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" style="height:100%;">
+  <div class="container-fluid" style="height:90%;">
     <div class="row no-glutters" style="height:80%;">
       <div class="col-10">
         <!-- 單據顯示 -->
@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import cashDetailShow from "./cashDetailShow";
-import backDataShow from "./backDataShow";
-import depositTeller from "../teller/depositTeller";
+import cashDetailShow from "./cash_detail_show";
+import backDataShow from "./back_data_show";
+import depositTeller from "../teller/deposit_teller";
 
 export default {
   data() {

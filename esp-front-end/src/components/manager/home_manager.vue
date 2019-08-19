@@ -1,6 +1,6 @@
 <template>
   <!-- Button -->
-  <div class="container-fluid h-100">
+  <div class="container-fluid" style="height:90%">
     <div class="row h-100 no-glutters">
       <div class="col" style="padding:0;">
         <form v-on:submit.prevent="goto_inquire" style="width:100%;height:100%">

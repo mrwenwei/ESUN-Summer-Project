@@ -1,6 +1,6 @@
 
 <template>
-  <div class="container-fluid" style=" height:80%">
+  <div class="container-fluid" style=" height:90%">
     <!-- login form -->
     <div class="d-flex row h-100 no-glutters">
       <div class="col-md-12 align-self-center">

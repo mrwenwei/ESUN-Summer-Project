@@ -1,6 +1,6 @@
 <template>
   <!-- 表單 -->
-  <div class="container-fluid h-100">
+  <div class="container-fluid" style="height:90%">
     <form v-on:submit.prevent="submit_form" style="width:100%;height:100%">
       <p>
         <br />

@@ -1,6 +1,6 @@
 <template>
   <!-- Button -->
-  <div id="home_customer" class="container-fluid h-100">
+  <div id="home_customer" class="container-fluid " style="height:90%">
     <div class="row  justify-content-center" style="height:20%;">
     </div>
     <div class="row justify-content-center" style="height:40%;">

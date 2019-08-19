@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid h-100">
+  <div class="container-fluid" style="height:90%">
     <div class="row">
       <div class="col-md-12">
         <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options">

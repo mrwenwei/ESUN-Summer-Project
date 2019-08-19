@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" style=" height:100%;">
+  <div class="container-fluid" style=" height:90%;">
     <p><br></p>
     <div class="row no-glutters" style=" border:1px solid;height:10%;">
       <div class="col-md-3 align-self-center" style="height:100%;">
