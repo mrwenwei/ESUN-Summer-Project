@@ -105,12 +105,14 @@ export default {
   },
   methods: {
     submit_form() {
+      console.log(this.$store.getters.getBranchCode)
       if (confirm("您確定要送出申請嗎？")) {
         let uri = "api/POST/transaction";
         this.axios
           .post(uri, {
             type: this.transactType,
-            receiptsData: JSON.stringify(this.depositForm)
+            receiptsData: JSON.stringify(this.depositForm),
+            branchCode: this.$store.getters.getBranchCode
           })
           .then(response => {
             // console.log(this.test);

@@ -64,6 +64,7 @@ export default {
     // Detect close the tab or reload.
     handler: function handler(event) {
       this.transact_data.reviewedCondition = 0;
+      console.log(this.transact_data.reviewedCondition)
       this.axios
         .put("api/PUT/transaction/" + this.docId, this.transact_data)
         .then(res => {
