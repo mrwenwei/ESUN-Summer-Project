@@ -43,5 +43,8 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  data: {
+    bgimg1: "../static/bgimg1.jpg"
+  }
 })

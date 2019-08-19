@@ -1,5 +1,5 @@
-<template>
-  <div id="app">
+<template> 
+  <div id="app" class="imgcs" v-bind:style="{'background-image': 'url(' + require('../static/bgimg1.png') + ')'}">
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <button
@@ -13,7 +13,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-
+      
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <!-- <span class="navbar-brand text-light">電子表單系統</span> -->
         <a class="navbar-brand text-light" href="/">玉山銀行電子表單系統</a>
@@ -29,7 +29,9 @@
       </div>
     </nav>
     <router-view />
+    
   </div>
+  
 </template>
 
 <script>
@@ -76,6 +78,11 @@ html,
 body,
 #app {
   height: 100%;
-  
+}
+.imgcs{
+  height: 100%;
+  background-size: cover;
+  background-position: absolute;
+  background-attachment: fixed;
 }
 </style>
