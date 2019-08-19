@@ -49,7 +49,7 @@ export default {
           reviewed: "審核結果",
         },
         requestFunction: function(params) {
-          return this.axios.get("api/GET/transactions", {
+          return this.axios.get("api/GET/transactions/"+this.$store.getters.getBranchCode, {
             params: params
           });
         },
@@ -93,7 +93,7 @@ export default {
     };
   },
   created() {
-    this.axios.get("api/GET/transactions").then(res => {
+    this.axios.get("api/GET/transactions/"+this.$store.getters.getBranchCode).then(res => {
       this.tableData = res.data;
       this.tableData.map(x => {
         x.dateTime = moment(x.dateTime + " GMT+0000");

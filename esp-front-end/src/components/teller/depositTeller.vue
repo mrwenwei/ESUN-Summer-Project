@@ -157,6 +157,8 @@ export default {
     });
     this.axios.get("api/GET/transaction/" + this.docId).then(res => {
       this.transact_data = res.data;
+      this.transact_data.dateTime = moment(this.transact_data.dateTime+ " GMT+0000").format("YYYY/MM/DD HH:mm:ss")
+      console.log(this.transact_data.dateTime)
       this.$emit("infoPresent", {
       transact_data: this.transact_data
     });

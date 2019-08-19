@@ -12,6 +12,7 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     userAccount:localStorage.getItem('userAccount') || '',
     doc:localStorage.getItem('doc') || '',
+    branchCode:localStorage.getItem('branchCode') || '',
   },
   mutations: {
     auth_request(state) {
@@ -21,6 +22,7 @@ export default new Vuex.Store({
       state.status = 'success'
       state.token = payload.token
       state.userAccount = payload.userAccount
+      state.branchCode = payload.branchCode
     },
     auth_error(state) {
       state.status = 'error'
@@ -29,6 +31,7 @@ export default new Vuex.Store({
       state.status = ''
       state.token = ''
       state.userAccount = ''
+      state.branchCode = ''
       state.doc = ''
     },
     edit(state, doc){
@@ -44,10 +47,13 @@ export default new Vuex.Store({
           .then(resp => {
             const token = resp.data.role
             const userAccount = resp.data.account
+            const branchCode = resp.data.branchCode
+            console.log(resp.data.branchCode)
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
             localStorage.setItem('userAccount', userAccount)
-            commit('auth_success', {'token':token, 'userAccount':userAccount})
+            localStorage.setItem('branchCode', branchCode)
+            commit('auth_success', {'token':token, 'userAccount':userAccount, 'branchCode':branchCode})
             resolve(resp)
           })
           .catch(err => {
@@ -63,6 +69,7 @@ export default new Vuex.Store({
         localStorage.removeItem('token')
         localStorage.removeItem('userAccount')
         localStorage.removeItem('doc')
+        localStorage.removeItem('branchCode')
         delete axios.defaults.headers.common['Authorization']
         resolve()
       })
@@ -80,6 +87,7 @@ export default new Vuex.Store({
     authStatus: state => state.status,
     authToken: state => state.token,
     editedDoc: state => state.doc,
-    getUser: state => state.userAccount
+    getUser: state => state.userAccount,
+    getBranchCode: state => state.branchCode
   }
 })
