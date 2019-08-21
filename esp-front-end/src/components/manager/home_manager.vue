@@ -1,14 +1,15 @@
 <template>
   <!-- Button -->
-  <div class="container-fluid h-100">
-    <div class="row h-100 no-glutters">
-      <div class="col" style="padding:0;">
+  <div class="container-fluid" style="height:90%">
+    <div class="row justify-content-center" style="height:20%;"></div>
+    <div class="row justify-content-center" style="height:40%;">
+      <div class="col-3">
         <form v-on:submit.prevent="goto_inquire" style="width:100%;height:100%">
           <button
             type="submit"
-            class="btn btn-warning text-light"
-            style="width:100%;height:100%"
-          >主管威能</button>
+            class="btn btn-info text-light"
+            style="width:100%;height:100%;font-size:xx-large;"
+          >交易查看</button>
         </form>
       </div>
     </div>

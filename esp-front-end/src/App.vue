@@ -1,7 +1,7 @@
 <template> 
   <div id="app" class="imgcs" v-bind:style="{'background-image': 'url(' + require('../static/bgimg1.png') + ')'}">
     <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info" style="height:10%">
       <button
         class="navbar-toggler"
         type="button"

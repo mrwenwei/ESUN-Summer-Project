@@ -22,9 +22,21 @@
     <!-- 第二大題 -->
     <div class="form-row">
       <label
+        for="question2"
         class="col-md-4 col-form-label col-form-label-sm"
+        v-if="this.transact_data.type=='存款' || this.transact_data.type=='匯款'"
         style="border:1px solid;"
       >2.申請人是否認識存入帳戶的受款人</label>
+
+      <label
+        for="question2"
+        class="col-md-4 col-form-label col-form-label-sm"
+        v-if="this.transact_data.type=='取款'"
+        style="border:1px solid;"
+      >2.申請人是否認識陪同提款者(有陪同提款者時詢問)</label>
+
+
+
       <div class="col-md-2" style="border:1px solid">
         <span>{{backData.question2}}</span>
       </div>
@@ -44,7 +56,7 @@
       <label
         class="col-md-4 col-form-label col-form-label-sm"
         style="border:1px solid;"
-      >3.申請人存入款項的目的</label>
+      >3.申請人申請交易的目的</label>
       <div class="col-md-2" style="border:1px solid">
         <span>{{backData.question4}}</span>
       </div>
@@ -109,10 +121,10 @@ export default {
     this.docId = this.$store.getters.editedDoc;
     this.axios.get("api/GET/transaction/" + this.docId).then(res => {
       this.transact_data = res.data;
+      console.log("qq")
       console.log(this.transact_data);
 
       this.backData = JSON.parse(res.data.backData);
-      console.log("qq" + this.backData);
     });
   }
 };

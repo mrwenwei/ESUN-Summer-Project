@@ -1,6 +1,6 @@
 
 <template>
-  <div class="container-fluid" style=" height:80%">
+  <div class="container-fluid" style=" height:90%">
     <!-- login form -->
     <div class="d-flex row h-100 no-glutters">
       <div class="col-md-12 align-self-center">
@@ -8,7 +8,7 @@
           <!-- 帳號 -->
           <div class="d-flex justify-content-center form-row form-group">
             <div class="d-flex align-items-end flex-column col-md-1">
-              <label>帳號</label>
+              <label style="font-size: x-large;">帳號</label>
             </div>
             <div class="col-md-3">
               <input
@@ -23,11 +23,11 @@
           <!-- 密碼 -->
           <div class="d-flex justify-content-center form-row form-group">
             <div class="d-flex align-items-end flex-column  col-md-1">
-              <label>密碼</label>
+              <label style="font-size: x-large;">密碼</label>
             </div>
             <div class="col-md-3">
               <input
-                type="test"
+                type="password"
                 v-model="user.password"
                 required
                 class="form-control"

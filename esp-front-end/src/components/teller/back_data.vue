@@ -36,8 +36,17 @@
       <label
         for="question2"
         class="col-md-4 col-form-label col-form-label-sm"
+        v-if="this.transact_data.type=='存款' || this.transact_data.type=='匯款'"
         style="border:1px solid;"
       >2.申請人是否認識存入帳戶的受款人</label>
+
+      <label
+        for="question2"
+        class="col-md-4 col-form-label col-form-label-sm"
+        v-if="this.transact_data.type=='取款'"
+        style="border:1px solid;"
+      >2.申請人是否認識陪同提款者(有陪同提款者時詢問)</label>
+
       <div class="col-md-2" style="border:1px solid">
         <select
           class="form-control form-control-sm"
@@ -52,19 +61,19 @@
         </select>
       </div>
       <!-- 第二題 追問 -->
-      <div class="col-md-4"  style="border:1px solid">
-      <label
-        for="question3"
-        class=" col-form-label col-form-label-sm"
-        v-if='question2==="是"'
-      >如是，與受款人關係為</label>
+      <div class="col-md-4" style="border:1px solid">
+        <label
+          for="question3"
+          class="col-form-label col-form-label-sm"
+          v-if="question2=='是'"
+        >如是，與受款人關係為</label>
       </div>
       <div class="col-md-2" style="border:1px solid">
         <input
           type="text"
           class="form-control form-control-sm"
           id="question3"
-          v-if='question2==="是"'
+          v-if="question2=='是'"
           placeholder="請輸入"
           v-model="question3"
           @input="send_to_parent"
@@ -134,17 +143,17 @@
       </div>
       <!-- 第四大題 追問 -->
       <div class="col-md-4" style="border:1px solid">
-      <label
-        for="question7"
-        class="col-form-label col-form-label-sm"
-        v-if='question6==="是"'
-      >如是，請續答，家人是否知悉此筆交易</label>
+        <label
+          for="question7"
+          class="col-form-label col-form-label-sm"
+          v-if="question6=='是'"
+        >如是，請續答，家人是否知悉此筆交易</label>
       </div>
       <div class="col-md-2" style="border:1px solid">
         <select
           class="form-control form-control-sm"
           id="question7"
-          v-if='question6==="是"'
+          v-if="question6=='是'"
           v-model="question7"
           @change="send_to_parent"
           required
@@ -203,6 +212,7 @@
 export default {
   data() {
     return {
+      transact_data: "",
       question1: "",
       question2: "",
       question3: "",
@@ -228,6 +238,22 @@ export default {
         question9: this.question9
       });
     }
+  },
+  created() {
+    this.docId = this.$store.getters.editedDoc;
+    this.axios.get("api/GET/transaction/" + this.docId).then(res => {
+      this.transact_data = res.data;
+      this.backData = JSON.parse(res.data.backData);
+      this.question1 = this.backData.question1;
+      this.question2 = this.backData.question2;
+      this.question3 = this.backData.question3;
+      this.question4 = this.backData.question4;
+      this.question5 = this.backData.question5;
+      this.question6 = this.backData.question6;
+      this.question7 = this.backData.question7;
+      this.question8 = this.backData.question8;
+      this.question9 = this.backData.question9;
+    });
   }
 };
 </script>
