@@ -5,8 +5,8 @@
         <!-- 單據顯示 -->
         <div class="row no-glutters" style=" height:55%;">
           <div class="col-12">
-            <depositTeller @infoPresent="get_infoPresent_data" @docIDReceive="get_docID"></depositTeller>
-            <!-- <depositTeller ></depositTeller> -->
+            <formTeller @infoPresent="get_infoPresent_data" @docIDReceive="get_docID"></formTeller>
+            <!-- <formTeller ></formTeller> -->
           </div>
         </div>
 
@@ -31,7 +31,7 @@
       <div class="col">
         <button
           type="button"
-          class="btn btn-outline-info btn-lg btn-block"
+          class="btn btn-info btn-lg btn-block"
           @click="toggle_reviewed"
         >{{button_content}}</button>
       </div>
@@ -42,7 +42,7 @@
 <script>
 import cashDetailShow from "./cash_detail_show";
 import backDataShow from "./back_data_show";
-import depositTeller from "../teller/deposit_teller";
+import formTeller from "../teller/form_teller";
 
 export default {
   data() {
@@ -132,7 +132,7 @@ export default {
       });
   },
   components: {
-    depositTeller,
+    formTeller,
     cashDetailShow,
     backDataShow
   }

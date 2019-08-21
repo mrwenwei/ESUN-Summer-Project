@@ -242,6 +242,23 @@ export default {
       ).toString();
       console.log(this.cashTotal);
     }
+  },
+  created() {
+    this.docId = this.$store.getters.editedDoc;
+    this.axios.get("api/GET/transaction/" + this.docId).then(res => {
+      this.transact_data = res.data;
+      this.cashDetail = JSON.parse(res.data.cashDetail);
+      this.cash2000 = this.cashDetail.cash2000
+      this.cash1000 = this.cashDetail.cash1000
+      this.cash500 = this.cashDetail.cash500
+      this.cash200 = this.cashDetail.cash200
+      this.cash100 = this.cashDetail.cash100
+      this.cash50 = this.cashDetail.cash50
+      this.cash20 = this.cashDetail.cash20
+      this.cash10 = this.cashDetail.cash10
+      this.cash5 = this.cashDetail.cash5
+      this.cash1 = this.cashDetail.cash1
+    });
   }
 };
 </script>

@@ -96,6 +96,8 @@ export default {
   created() {
     this.axios.get("api/GET/transactions/"+this.$store.getters.getBranchCode).then(res => {
       this.tableData = res.data;
+      console.log("table")
+      console.log(res.data)
       this.tableData.map(x => {
         x.dateTime = moment(x.dateTime + " GMT+0000");
         if (x.finishedTime) 
@@ -126,7 +128,7 @@ export default {
     },
     modifyReceiptsDataAmount(receiptsData) {
       var receipts = JSON.parse(receiptsData)
-      return bigdecimal.BigInteger(receipts.depositAmount);
+      return bigdecimal.BigInteger(receipts.transactAmount);
     },
     edit(id) {
       // Update local table

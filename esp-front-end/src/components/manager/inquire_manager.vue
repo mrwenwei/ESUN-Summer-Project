@@ -117,7 +117,7 @@ export default {
     modifyItem(reviewed, reviewedCondition) {
       if (reviewedCondition) return "審核中"
       else if (reviewed) return "退件";
-      else return "通過";
+      else return "查看";
     },
     modifyReceiptsDataName(receiptsData) {
       var receipts = JSON.parse(receiptsData)
@@ -125,7 +125,7 @@ export default {
     },
     modifyReceiptsDataAmount(receiptsData) {
       var receipts = JSON.parse(receiptsData)
-      return bigdecimal.BigInteger(receipts.depositAmount);
+      return bigdecimal.BigInteger(receipts.transactAmount);
     },
     edit(id) {
       // Update local table

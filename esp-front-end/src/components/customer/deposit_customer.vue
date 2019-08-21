@@ -8,15 +8,15 @@
       <!-- 存款金額 -->
       <div class="d-flex justify-content-center form-row form-group">
         <div class="col-md-2">
-          <label for="depositAmount">金額（新台幣）</label>
+          <label for="transactAmount">金額（新台幣）</label>
         </div>
         <div class="col-md-4">
           <input
             type="text"
             class="form-control"
-            id="depositAmount"
+            id="transactAmount"
             placeholder="請輸入金額"
-            v-model="depositForm.depositAmount"
+            v-model="depositForm.transactAmount"
             required
           />
         </div>
@@ -80,7 +80,7 @@
       <component :is="depositForm.depositMethod" @value_updated="get_child_data"></component>
       <div class="d-flex justify-content-center form-row">
         <div class="col-4"></div>
-        <div class="d-flex align-items-end flex-column col-2 ">
+        <div class="d-flex align-items-end flex-column col-2">
           <button type="submit" class="btn btn-primary">確認</button>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default {
     return {
       transactType: "存款",
       depositForm: {
-        depositAmount: "",
+        transactAmount: "",
         customerName: "",
         customerPhone: "",
         depositMethod: "",
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     submit_form() {
-      console.log(this.$store.getters.getBranchCode)
+      console.log(this.$store.getters.getBranchCode);
       if (confirm("您確定要送出申請嗎？")) {
         let uri = "api/POST/transaction";
         this.axios
@@ -115,9 +115,16 @@ export default {
             branchCode: this.$store.getters.getBranchCode
           })
           .then(response => {
-            // console.log(this.test);
+            console.log(response.data);
+            this.axios
+              .get("api/GET/transaction/" + response.data.id)
+              .then(res => {
+                alert(
+                  "已送出申請，即將返回首頁，您的交易編號為：" + res.data.tnum
+                );
+              });
           });
-        alert("已送出申請，即將返回首頁");  
+
         this.$router.push("home_customer");
       } else {
         console.log("沒事按到ㄅ歉");
