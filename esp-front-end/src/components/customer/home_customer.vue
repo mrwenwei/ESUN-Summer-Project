@@ -1,41 +1,34 @@
 <template>
-  <div class="h-100">
-    <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand text-light" href="#">電子表單系統</a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+  <!-- Button -->
+  <div class="container-fluid" style="height:90%">
+    <div class="row justify-content-center" style="height:20%;"></div>
+    <div class="row justify-content-center" style="height:40%;">
+      <div class="col-3">
+        <form v-on:submit.prevent="goto_deposit" style="width:100%;height:100%">
+          <button
+            type="submit"
+            class="btn btn-info text-light;"
+            style="width:100%;height:100%;font-size:xx-large;"
+          >存款</button>
+        </form>
       </div>
-    </nav>
-    <!-- Button -->
-    <div class="container-fluid h-100">
-      <div class="row h-100 no-glutters">
-        <div class="col" style="padding:0;">
-          <form v-on:submit.prevent="goto_deposit" style="width:100%;height:100%">
-            <button
-              type="submit"
-              class="btn btn-warning text-light"
-              style="width:100%;height:100%"
-            >存款</button>
-          </form>
-        </div>
-        <div class="col" style="padding:0;">
-          <button type="submit" class="btn btn-success text-light" style="width:100%;height:100%">取款</button>
-        </div>
-        <div class="col" style="padding:0;">
-          <button type="submit" class="btn btn-danger text-light" style="width:100%;height:100%">匯款</button>
-        </div>
+      <div class="col-3">
+        <form v-on:submit.prevent="goto_withdraw" style="width:100%;height:100%">
+          <button
+            type="submit"
+            class="btn btn-info text-light;"
+            style="width:100%;height:100%;font-size:xx-large;"
+          >取款</button>
+        </form>
+      </div>
+      <div class="col-3">
+        <form v-on:submit.prevent="goto_transfer" style="width:100%;height:100%">
+          <button
+            type="submit"
+            class="btn btn-info text-light;"
+            style="width:100%;height:100%;font-size:xx-large;"
+          >匯款</button>
+        </form>
       </div>
     </div>
   </div>
@@ -46,6 +39,12 @@ export default {
   methods: {
     goto_deposit() {
       this.$router.push({ name: "deposit_customer" });
+    },
+    goto_withdraw() {
+      this.$router.push({ name: "withdraw_customer" });
+    },
+    goto_transfer() {
+      this.$router.push({ name: "transfer_customer" });
     }
   }
 };

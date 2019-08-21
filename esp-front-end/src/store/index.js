@@ -10,39 +10,50 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user : {}
+    userName:localStorage.getItem('userName') || '',
+    doc:localStorage.getItem('doc') || '',
+    branchCode:localStorage.getItem('branchCode') || '',
   },
   mutations: {
-    auth_request(state){
+    auth_request(state) {
       state.status = 'loading'
     },
-    auth_success(state, token, user){
+    auth_success(state, payload) {
       state.status = 'success'
-      state.token = token
-      state.user = user
+      state.token = payload.token
+      state.userName = payload.userName
+      state.branchCode = payload.branchCode
     },
-    auth_error(state){
+    auth_error(state) {
       state.status = 'error'
     },
-    // logout(state){
-    //   state.status = ''
-    //   state.token = ''
-    // },
+    logout(state) {
+      state.status = ''
+      state.token = ''
+      state.userName = ''
+      state.branchCode = ''
+      state.doc = ''
+    },
+    edit(state, doc){
+      state.doc = doc
+    }, 
   },
   actions: {
-    login({commit}, user){
-        // console.log("login")
-        return new Promise((resolve, reject) => {
-          commit('auth_request')
-        //   console.log(user)
-        //   console.log(user.id)
-          axios({url: '/api/POST/user/auth/' + user.id, data: user, method: 'POST' })
+    login({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        commit('auth_request')
+        
+        axios({ url: '/api/POST/user/auth/' + user.id, data: user, method: 'POST' })
           .then(resp => {
             const token = resp.data.role
-            const user = resp.data.id
+            const userName = resp.data.name
+            const branchCode = resp.data.branchCode
+            console.log(resp.data.branchCode)
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
-            commit('auth_success', token, user)
+            localStorage.setItem('userName', userName)
+            localStorage.setItem('branchCode', branchCode)
+            commit('auth_success', {'token':token, 'userName':userName, 'branchCode':branchCode})
             resolve(resp)
           })
           .catch(err => {
@@ -50,13 +61,33 @@ export default new Vuex.Store({
             localStorage.removeItem('token')
             reject(err)
           })
-        })
+      })
     },
-
+    logout({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('logout')
+        localStorage.removeItem('token')
+        localStorage.removeItem('userName')
+        localStorage.removeItem('doc')
+        localStorage.removeItem('branchCode')
+        delete axios.defaults.headers.common['Authorization']
+        resolve()
+      })
+    },
+    edit({commit}, doc){
+      return new Promise((resolve) => {
+        localStorage.setItem('doc', doc)
+        commit('edit', doc)
+        resolve()
+      })
+    }
   },
-  getters : {
+  getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
-    authToken: state => state.token
+    authToken: state => state.token,
+    editedDoc: state => state.doc,
+    getUser: state => state.userName,
+    getBranchCode: state => state.branchCode
   }
 })
