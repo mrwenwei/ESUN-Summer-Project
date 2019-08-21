@@ -15,7 +15,7 @@
             <a
               @click="edit(props.row.id)"
               style="color:blue; cursor:pointer"
-            >{{ modifyFinished(props.row.finished, props.row.finishedCondition) }}</a>
+            >{{ modifyFinished(props.row.finished, props.row.finishedCondition, props.row.reviewed) }}</a>
           </template>
           <template slot="顧客姓名" slot-scope="props">
             {{ modifyReceiptsDataName(props.row.receiptsData) }}
@@ -115,8 +115,9 @@ export default {
         );
       }
     },
-    modifyFinished(finished, finishedCondition) {
-      if (finishedCondition) return "辦理中"
+    modifyFinished(finished, finishedCondition, reviewed) {
+      if (reviewed) return "遭退件"
+      else if (finishedCondition) return "辦理中"
       else if (finished) return "已辦理";
       else return "待辦理";
     },
