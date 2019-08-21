@@ -20,7 +20,7 @@
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <label v-if="isLoggedIn" class="text-light nav-link">{{ userInfo() }}，您好</label>
+            <label v-if="isLoggedIn" class="text-light nav-link">{{ this.userInfo }}</label>
           </li>
           <li class="nav-item">
             <a v-if="isLoggedIn" class="nav-link" href="#" @click="logout">Logout</a>
@@ -36,6 +36,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      userInfo: ""
+    }
+  },
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
@@ -50,6 +55,7 @@ export default {
         throw err;
       });
     });
+    this.getUserInfo();
   },
   methods: {
     logout: function() {
@@ -60,9 +66,11 @@ export default {
         console.log("沒事按到ㄅ歉");
       }
     },
-    userInfo() {
-      console.log(this.$store.getters.getUser);
-      return this.$store.getters.getUser;
+    getUserInfo() {
+      this.axios.get("api/GET/branch/"+this.$store.getters.getBranchCode).then(res => {
+        this.userInfo = res.data.name+"  "+ this.$store.getters.getUser + "，您好";
+        console.log(this.userInfo)
+      })
     }
   },
   onIdle() {

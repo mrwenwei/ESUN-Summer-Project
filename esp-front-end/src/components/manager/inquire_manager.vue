@@ -60,7 +60,7 @@ export default {
           };
         },
         filterByColumn: true,
-        filterable: ["id", "type", "dateTime"],
+        filterable: ["id", "type", "dateTime", "tnum"],
         dateColumns: ["dateTime"],
         dateFormat: "YYYY/MM/DD HH:mm:ss",
         datepickerOptions: {

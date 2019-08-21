@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    userAccount:localStorage.getItem('userAccount') || '',
+    userName:localStorage.getItem('userName') || '',
     doc:localStorage.getItem('doc') || '',
     branchCode:localStorage.getItem('branchCode') || '',
   },
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     auth_success(state, payload) {
       state.status = 'success'
       state.token = payload.token
-      state.userAccount = payload.userAccount
+      state.userName = payload.userName
       state.branchCode = payload.branchCode
     },
     auth_error(state) {
@@ -30,7 +30,7 @@ export default new Vuex.Store({
     logout(state) {
       state.status = ''
       state.token = ''
-      state.userAccount = ''
+      state.userName = ''
       state.branchCode = ''
       state.doc = ''
     },
@@ -46,14 +46,14 @@ export default new Vuex.Store({
         axios({ url: '/api/POST/user/auth/' + user.id, data: user, method: 'POST' })
           .then(resp => {
             const token = resp.data.role
-            const userAccount = resp.data.account
+            const userName = resp.data.name
             const branchCode = resp.data.branchCode
             console.log(resp.data.branchCode)
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
-            localStorage.setItem('userAccount', userAccount)
+            localStorage.setItem('userName', userName)
             localStorage.setItem('branchCode', branchCode)
-            commit('auth_success', {'token':token, 'userAccount':userAccount, 'branchCode':branchCode})
+            commit('auth_success', {'token':token, 'userName':userName, 'branchCode':branchCode})
             resolve(resp)
           })
           .catch(err => {
@@ -67,7 +67,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('logout')
         localStorage.removeItem('token')
-        localStorage.removeItem('userAccount')
+        localStorage.removeItem('userName')
         localStorage.removeItem('doc')
         localStorage.removeItem('branchCode')
         delete axios.defaults.headers.common['Authorization']
@@ -87,7 +87,7 @@ export default new Vuex.Store({
     authStatus: state => state.status,
     authToken: state => state.token,
     editedDoc: state => state.doc,
-    getUser: state => state.userAccount,
+    getUser: state => state.userName,
     getBranchCode: state => state.branchCode
   }
 })

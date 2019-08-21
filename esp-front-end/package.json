@@ -6,7 +6,6 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "serve": "vue-cli-service serve --host 39.12.160.93",
     "start": "npm run dev",
     "build": "node build/build.js"
   },

@@ -78,12 +78,14 @@ export default {
             this.$router.push("/");
           } else {
             this.$router.push("/home_" + this.$store.getters.authToken);
+            this.$router.go()
             // console.log(this.$store.getters.authToken);
             // console.log(this.$store.getters.getUser);
           }
+          
         })
         .catch(err => console.log(err));
-    }
+    },
   }
 };
 </script>
