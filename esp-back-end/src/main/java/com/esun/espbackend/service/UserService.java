@@ -41,12 +41,7 @@ public class UserService {
         UserEntity updatedUser;
         Optional<UserEntity> searchEntity = userRepo.findById(account);
         if (searchEntity.isPresent()) {
-            UserEntity User = searchEntity.get();
-            User.setPassword(userEntity.getPassword());
-            User.setName(userEntity.getName());
-            User.setRole(userEntity.getRole());
-            User.setBranchCode(userEntity.getBranchCode());
-            updatedUser = userRepo.save(User);
+            updatedUser = userRepo.save(userEntity);
         } else {
             throw new EntityNotFoundException();
         }

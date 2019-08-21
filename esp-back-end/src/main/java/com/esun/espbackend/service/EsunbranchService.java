@@ -41,12 +41,7 @@ public class EsunbranchService {
 		EsunbranchEntity updatedBranch;
         Optional<EsunbranchEntity> searchEntity = esunbranchRepo.findById(branchCode);
         if (searchEntity.isPresent()) {
-        	EsunbranchEntity branch = searchEntity.get();
-        	branch.setName(esunbranchEntity.getName());
-        	branch.setAddress(esunbranchEntity.getAddress());
-        	branch.setTele(esunbranchEntity.getTele());
-        	branch.setManagerName(esunbranchEntity.getManagerName());
-            updatedBranch = esunbranchRepo.save(branch);
+            updatedBranch = esunbranchRepo.save(esunbranchEntity);
         } else {
             throw new EntityNotFoundException();
         }

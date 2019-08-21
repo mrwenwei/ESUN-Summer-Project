@@ -1,6 +1,7 @@
 package com.esun.espbackend.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,6 +23,10 @@ public class TransactionService {
 		return transRepo.findAll();
 	}
 	
+	public List<TransactionEntity> getSameBranchTransactions(String branch_code) {
+		return transRepo.getSameBranchTransactions(branch_code);
+	}
+	
 	public TransactionEntity getOne(String id) {
 		Optional<TransactionEntity> searchEntity = transRepo.findById(id);
 		TransactionEntity Transaction;
@@ -34,10 +39,8 @@ public class TransactionService {
 	}
 	
 	public TransactionEntity createTransaction(TransactionEntity transactionEntity) {
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.setTime(transactionEntity.getDateTime());
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//		sdf.setTimeZone(TimeZone.getTimeZone("CST"));
+		transactionEntity.setFinishedCondition(0);
+		transactionEntity.setReviewedCondition(0);
 		return transRepo.save(transactionEntity);
 	}
 	
@@ -45,13 +48,7 @@ public class TransactionService {
         TransactionEntity updatedTransaction;
         Optional<TransactionEntity> searchEntity = transRepo.findById(id);
         if (searchEntity.isPresent()) {
-            TransactionEntity Transaction = searchEntity.get();
-            Transaction.setDateTime(transactionEntity.getDateTime());
-            Transaction.setBranchCode(transactionEntity.getBranchCode());
-            Transaction.setType(transactionEntity.getType());
-            Transaction.setBroker(transactionEntity.getBroker());
-            Transaction.setReceiptsData(transactionEntity.getReceiptsData());
-            updatedTransaction = transRepo.save(Transaction);
+            updatedTransaction = transRepo.save(transactionEntity);
         } else {
             throw new EntityNotFoundException();
         }

@@ -24,7 +24,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/GET/users")
 	public List<UserEntity> getAll() {
-        return userService.getAll();
+    	return userService.getAll();
     }
     
     @RequestMapping(value = "/GET/user/{id}")
