@@ -23,10 +23,6 @@
 
 MSSQL 在 Docker 上的 image 安裝可以參考此篇[官方文件](https://docs.microsoft.com/zh-tw/sql/linux/quickstart-install-connect-docker?view=sql-server-2017&pivots=cs1-bash)，照著上面的指令操作即可建構完成。
 
-附上我們使用的 docker hub 可供下載：
-```
-$ docker pull qscefb5566/esp-sqlserver
-```
 **Docker 在使用資料庫時會發現無法插入中文資料，因此在建構資料庫時必須輸入以下指令：**
 ```
 1> CREATE DATABASE your_db_name
