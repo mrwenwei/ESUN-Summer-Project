@@ -4,7 +4,7 @@
     <div class="row justify-content-center" style="height:20%;"></div>
     <div class="row justify-content-center" style="height:40%;">
       <div class="col-3">
-        <form v-on:submit.prevent="goto_deposit" style="width:100%;height:100%">
+        <form v-on:submit.prevent="goto_deposit" style="width:100%;height:100%;">
           <button
             type="submit"
             class="btn btn-info text-light;"
@@ -49,5 +49,9 @@ export default {
   }
 };
 </script>
-
+<style>
+.btn-info{
+  background-color:#00AD95;
+}
+</style>
 

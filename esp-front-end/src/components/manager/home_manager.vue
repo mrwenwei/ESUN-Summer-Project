@@ -25,5 +25,9 @@ export default {
   }
 };
 </script>
-
+<style>
+.btn-info{
+  background-color:#00AD95;
+}
+</style>
 

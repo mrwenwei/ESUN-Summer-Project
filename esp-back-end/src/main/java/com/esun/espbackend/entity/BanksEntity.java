@@ -17,7 +17,6 @@ public class BanksEntity {
     @Column(name = "name")
     String Name;
     
-	
 	public String getSWIFTCODE() {
 		return SWIFTCODE;
 	}

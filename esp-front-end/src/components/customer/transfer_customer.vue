@@ -12,6 +12,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="transactAmount"
@@ -30,6 +31,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="transferAccount"
@@ -46,6 +48,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="transferName"
@@ -75,6 +78,7 @@
 
         <div class="col-md-2">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="transferBranch"
@@ -91,6 +95,7 @@
         </div>
         <div class="col-md-1">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="customerName"
@@ -104,6 +109,7 @@
         </div>
         <div class="col-md-2">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="customerPhone"
@@ -121,6 +127,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="customerTaxNumber"
@@ -203,7 +210,7 @@
 export default {
   data() {
     return {
-      banks:[],
+      banks: [],
       transactType: "匯款",
       transferForm: {
         transactAmount: "0",
@@ -291,7 +298,7 @@ export default {
                 <label for="customerAccount">取款帳號</label>
                 </div>
                 <div class="col-md-4">
-                <input
+                <input autocomplete="off"
                     type="text"
                     class="form-control"
                     id="customerAccount"
@@ -329,8 +336,8 @@ export default {
       // for(var i=0;i<res.data.length;i++){
       //   this.banks.push(res.data[i].name)
       // }
-      this.banks = res.data
-      console.log(this.banks)
+      this.banks = res.data;
+      console.log(this.banks);
     });
   }
 };

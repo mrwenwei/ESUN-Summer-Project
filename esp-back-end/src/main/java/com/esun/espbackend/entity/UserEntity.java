@@ -24,7 +24,7 @@ public class UserEntity {
     String Name;
 
     @Column(name = "branch_code")
-    String BranchCode;
+    String BranchCode; 
 	
 	public String getAccount() {
 		return Account;

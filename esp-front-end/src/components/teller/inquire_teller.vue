@@ -2,7 +2,7 @@
   <div class="container-fluid" style="height:90%">
     <div class="row">
       <div class="col-md-12">
-        <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options">
+        <v-client-table ref="myTable" :data="tableData" :columns="columns" :options="options" style="background-color:white">
           <template slot="filter__finished">
             <input type="radio" value="false" v-model="keywordFinished" @change="searchByFinished" />
             <label for="one">待辦理</label>
@@ -38,6 +38,10 @@ export default {
       columns: ["type", "tnum", "顧客姓名", "交易金額", "dateTime", "broker", "finishedTime", "finished"],
       tableData: [],
       options: {
+        orderBy: {
+          column: 'datetime',
+          accending: true
+        },
         perPageValues: [],
         perPage: 25,
         headings: {

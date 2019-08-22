@@ -12,6 +12,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="transactAmount"
@@ -28,6 +29,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="customerName"
@@ -45,6 +47,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="customerPhone"
@@ -143,7 +146,7 @@ export default {
             <label for="depositAccount">存款帳號</label>
           </div>
           <div class="col-md-4">
-            <input type="text" class="form-control" id="depositAccount" placeholder="請輸入帳號" v-model="depositAccount" @input="send_to_parent" required />
+            <input autocomplete="off" type="text" class="form-control" id="depositAccount" placeholder="請輸入帳號" v-model="depositAccount" @input="send_to_parent" required />
           </div>
         </div>
       `,
@@ -182,7 +185,7 @@ export default {
               <label for="creditCardUser">信用卡正卡戶姓名</label>
             </div>
             <div class="col-md-4">
-              <input type="text" class="form-control" id="creditCardUser" placeholder="請輸入姓名" v-model="creditCardUser" @input="send_to_parent" required />
+              <input autocomplete="off" type="text" class="form-control" id="creditCardUser" placeholder="請輸入姓名" v-model="creditCardUser" @input="send_to_parent" required />
             </div>
           </div>
           <div class="d-flex justify-content-center form-row form-group">
@@ -190,7 +193,7 @@ export default {
               <label for="creditCardUserTaxNumber">正卡戶統一編號</label>
             </div>
             <div class="col-md-4">
-              <input type="text" class="form-control" id="creditCardUserTaxNumber" placeholder="請輸入統編" v-model="creditCardUserTaxNumber" @input="send_to_parent" required />
+              <input autocomplete="off" type="text" class="form-control" id="creditCardUserTaxNumber" placeholder="請輸入統編" v-model="creditCardUserTaxNumber" @input="send_to_parent" required />
             </div>
           </div>
         </div>
@@ -233,7 +236,7 @@ export default {
 
             <div class="col-md-2">
               <div class="form-checkbox">
-                <input
+                <input autocomplete="off"
                  
                   type="radio"
                   id="prohibitTransfer"
@@ -251,7 +254,7 @@ export default {
               <label for="ticketHead">抬頭</label>
             </div>
             <div class="col-md-4">
-              <input
+              <input autocomplete="off"
                 type="text"
                 class="form-control"
                 id="ticketHead"
@@ -267,7 +270,7 @@ export default {
               <label for="ticketNum">票號</label>
             </div>
             <div class="col-md-4">
-              <input
+              <input autocomplete="off"
                 type="text"
                 class="form-control"
                 id="ticketNum"

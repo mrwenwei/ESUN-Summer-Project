@@ -1,7 +1,8 @@
 <template> 
-  <div id="app" class="imgcs" v-bind:style="{'background-image': 'url(' + require('../static/bgimg1.png') + ')'}">
+<!-- class="imgcs" v-bind:style="{'background-image': 'url(' + require('../static/bgimg1.png') + ')'}" -->
+  <div id="app" style="background-color:#EAEAEA">
     <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info" style="height:10%">
+    <nav class="navbar navbar-expand-lg navbar-light staticcor" style="height:10%">
       <button
         class="navbar-toggler"
         type="button"
@@ -92,5 +93,8 @@ body,
   background-size: cover;
   background-position: absolute;
   background-attachment: fixed;
+}
+.staticcor {
+  background-color: #00ad95
 }
 </style>

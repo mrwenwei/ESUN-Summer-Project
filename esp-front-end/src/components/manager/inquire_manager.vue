@@ -39,6 +39,10 @@ export default {
       columns: ["type", "tnum", "顧客姓名", "交易金額", "dateTime", "broker", "reviewed"],
       tableData: [],
       options: {
+        orderBy: {
+          column: 'datetime',
+          accending: true
+        },
         perPageValues: [],
         perPage: 25,
         headings: {
@@ -113,6 +117,9 @@ export default {
           this.keywordReviewed
         );
       }
+    },
+    filterByFinished() {
+
     },
     modifyItem(reviewed, reviewedCondition) {
       if (reviewedCondition) return "審核中"

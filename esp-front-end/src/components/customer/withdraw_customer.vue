@@ -12,6 +12,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="transactAmount"
@@ -28,6 +29,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="customerName"
@@ -44,6 +46,7 @@
         </div>
         <div class="col-md-4">
           <input
+            autocomplete="off"
             type="text"
             class="form-control"
             id="withdrawAccount"
@@ -60,11 +63,7 @@
           <label for="withdrawMethod">轉帳方式</label>
         </div>
         <div class="col-md-4">
-          <select
-            class="custom-select"
-            id="withdrawMethod"
-            v-model="withdrawForm.withdrawMethod"
-          >
+          <select class="custom-select" id="withdrawMethod" v-model="withdrawForm.withdrawMethod">
             <option value>請選擇轉帳方式</option>
             <option value="deposit">單筆存入</option>
             <option value="ticket">開立票據</option>
@@ -93,7 +92,7 @@ export default {
       transactType: "取款",
       withdrawForm: {
         transactAmount: "",
-        customerName:"",
+        customerName: "",
         withdrawAccount: "",
         withdrawMethod: "",
         transactDetail: {}
@@ -141,7 +140,7 @@ export default {
                 <label for="depositAccount">存入帳號</label>
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="depositAccount" placeholder="請輸入帳號" v-model="depositAccount" @input="send_to_parent" required />
+                <input autocomplete="off" type="text" class="form-control" id="depositAccount" placeholder="請輸入帳號" v-model="depositAccount" @input="send_to_parent" required />
             </div>
             </div>
             <div class="d-flex justify-content-center form-row form-group">
@@ -149,7 +148,7 @@ export default {
                 <label for="accountOwner">帳號戶名</label>
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="accountOwner" placeholder="請輸入帳號" v-model="accountOwner" @input="send_to_parent" required />
+                <input autocomplete="off" type="text" class="form-control" id="accountOwner" placeholder="請輸入帳號" v-model="accountOwner" @input="send_to_parent" required />
             </div>
             </div>
         </div>
@@ -164,7 +163,7 @@ export default {
         send_to_parent() {
           this.$emit("value_updated", {
             depositAccount: this.depositAccount,
-            accountOwner:this.accountOwner
+            accountOwner: this.accountOwner
           });
         }
       }
@@ -192,7 +191,7 @@ export default {
 
             <div class="col-md-2">
               <div class="form-checkbox">
-                <input
+                <input autocomplete="off"
                  
                   type="radio"
                   id="prohibitTransfer"
@@ -210,7 +209,7 @@ export default {
               <label for="ticketHead">抬頭</label>
             </div>
             <div class="col-md-4">
-              <input
+              <input autocomplete="off"
                 type="text"
                 class="form-control"
                 id="ticketHead"
@@ -226,7 +225,7 @@ export default {
               <label for="ticketNum">票號</label>
             </div>
             <div class="col-md-4">
-              <input
+              <input autocomplete="off"
                 type="text"
                 class="form-control"
                 id="ticketNum"
