@@ -14,25 +14,6 @@
 
     Eclipse 4.12.0
     Visual Studio Code 1.37.1
-    (此系統使用到的開發軟體皆可在各平台使用)   
-
-### 資料庫環境建置
-
-[Docker](https://zh.wikipedia.org/wiki/Docker) 是一種軟體平台，可使用容器快速地建立、測試和部署應用程式。
-，他的好處是輕量化，且可以跨平台開發。
-
-MSSQL 在 Docker 上的 image 安裝可以參考此篇[官方文件](https://docs.microsoft.com/zh-tw/sql/linux/quickstart-install-connect-docker?view=sql-server-2017&pivots=cs1-bash)，照著上面的指令操作即可建構完成。
-
-**Docker 在使用資料庫時會發現無法插入中文資料，因此在建構資料庫時必須輸入以下指令：**
-```
-1> CREATE DATABASE your_db_name
-1> COLLATE Chinese_PRC_CI_AS; 
-1> GO
-```
-做完以上步驟後即可在終端機中使用 SQL 指令操控資料庫，但如果你用不習慣 command line ，想要使用圖形介面這裡也介紹一個 Microsoft 推出的 [Azure Data Studio](https://docs.microsoft.com/zh-tw/sql/azure-data-studio/download?view=sql-server-2017)，下載安裝好後只需要連線本地端的 SQL Server 帳密，並選擇資料庫，就可以使用像 MS SQL 那樣的圖形化介面，還有提供 notebook 的方式可以進行 Query，非常方便。
-![](https://i.imgur.com/PDBmD8g.png)
-
-
 
 ### 後端環境建置
 
@@ -169,22 +150,61 @@ $ npm -v
 ## 運行專案
 
 這裡演示如何在同一台電腦同時開啟前後端及資料庫並運行。
-1. 下載專案檔案：
+而資料庫的部分我們使用了 [Docker](https://zh.wikipedia.org/wiki/Docker) ，一種軟體平台，可使用容器快速地建立、測試和部署應用程式。
+，他的好處是輕量化，且可以跨平台開發。
+
+
+
+
+1. 下載安裝：[載點](https://hub.docker.com/?overlay=onboarding)，安裝完後可以查看一下是否安裝成功，打開終端機輸入
+```
+$ docekr ps
+```
+    
+前面有提到資料庫可以自己建，不過也可以先抓下我們建好的 docker image，只要 run 起來就行了（不過建議還是自己建）。
+```
+$ docker pull qscefb5566/esp-sqlserver
+```
+執行 image 檔，建立 container
+```
+$ sudo docker run -e 'ACCEPT_EULA=Y' \
+    -p 1433:1433 --name sql1 \
+    -d qscefb5566/esp-sqlserver
+```
+執行 container
+```
+$ sudo docker exec -it sql1 "bash"
+```
+登入 sqlserver (我們預設好的密碼)
+```
+root@xxxxxxxxx:/# /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "abcABC1234567"
+```
+
+2. 下載專案檔案：
 ```
 $ git clone https://github.com/mrwenwei/ESUN-Summer-Project
 ```
-2. pull 我們製作好的 image 檔在 docker 上使用，並執行資料庫（尚未完成）
-3. 開啟後端 server: 
+3. pull 我們製作好的 image 檔在 docker 上使用，並執行資料庫（尚未完成）
+4. 開啟後端 server: 
     * 在 Eclipse 中匯入資料夾中的「esp-back-end」資料夾![](https://i.imgur.com/S4zW3bF.png =300x)
+    * 打開 Java Resources>src/main/resources>application.properties，並改成你的資料庫資訊。
+    ![](https://i.imgur.com/DSriuLc.png)
+
     * 對原本建立好的 wildfly server 點右鍵>add and remove，將 esp-back-end 加入 server，執行後即完成後端部署
 ![](https://i.imgur.com/sU8nS6Q.png)
-4. 開啟前端 server:
+
+5. 開啟前端 server:
 ```
 $ cd ESUN-Summer-Project/esp-front-end
 
 $ npm install
 ```
-開發模式：開啟 [localhost:8081](localhost:8081)(預設)
+設定後端 ip:
+esp-front-end/config/index.js
+![](https://i.imgur.com/XxM1E8v.png)
+改成後端所在 ip 及 port
+
+開發模式：開啟 [localhost:8081](localhost:8081)(預設port)，即可開始運行。
 ```
 $ npm run dev 
 ```
@@ -194,4 +214,12 @@ $ npm run build
 ```
 打包後會出現 dist 的資料夾，內部的文件直接放到伺服器上即可。
 
-###### tags: `Spring boot` `Vue.js` `MSSQL` `Documentation`
+
+
+## Appendix and FAQ
+
+:::info
+**Find this document incomplete?** Leave a comment!
+:::
+
+###### tags: `Spring boot` `Vue.js` `MSSQL` `Documentation` `Docker`
